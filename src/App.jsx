@@ -6,6 +6,7 @@ import VendorLogin from './pages/VendorLogin';
 import ForgotPassword from './pages/ForgotPassword';
 import VendorDashboard from './pages/VendorDashboard';
 import ProductCatalogue from './pages/ProductCatalogue';
+import ClientDashboard from './pages/ClientDashboard';
 
 function App() {
   const router = createBrowserRouter([
@@ -22,14 +23,17 @@ function App() {
       element: <ForgotPassword />
     },
     {
-      path:"/product-catalogue",
-      element:<ProductCatalogue />
+      path: "/product-catalogue",
+      element: <ProductCatalogue />
     },
     {
-      path:"/vendordash",
+      path: "/vendordash",
       element: <VendorDashboard />
     },
-
+    {
+      path: '/clientdash',
+      element: <ClientDashboard />
+    }
   ])
 
   return (
