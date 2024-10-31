@@ -4,6 +4,8 @@ import './App.css'
 import VendorSignUp from './pages/VendorSignUp';
 import VendorLogin from './pages/VendorLogin';
 import ForgotPassword from './pages/ForgotPassword';
+import VendorDashboard from './pages/VendorDashboard';
+import ProductCatalogue from './pages/ProductCatalogue';
 
 function App() {
   const router = createBrowserRouter([
@@ -21,8 +23,12 @@ function App() {
     },
     {
       path:"/product-catalogue",
-      element:<ProductCatalogue/>
-    }
+      element:<ProductCatalogue />
+    },
+    {
+      path:"/vendordash",
+      element: <VendorDashboard />
+    },
 
   ])
 
