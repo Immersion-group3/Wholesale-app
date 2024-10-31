@@ -4,9 +4,9 @@ import Sidebar from '../components/Sidebar';
 const VendorDashboard = () => {
   return (
     <div>
-        <div>
+        <div className='flex'>
             <Sidebar />
-            <div></div>
+            <div>V</div>
         </div>
     </div>
   )
