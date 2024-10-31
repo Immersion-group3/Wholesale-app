@@ -1,8 +1,14 @@
 import React from 'react'
+import Sidebar from '../components/Sidebar';
 
 const VendorDashboard = () => {
   return (
-    <div>VendorDashboard</div>
+    <div>
+        <div>
+            <Sidebar />
+            <div></div>
+        </div>
+    </div>
   )
 }
 
