@@ -18,6 +18,10 @@ function App() {
     {
       path: "/forgotpassword",
       element: <ForgotPassword />
+    },
+    {
+      path:"/product-catalogue",
+      element:<ProductCatalogue/>
     }
 
   ])
