@@ -5,7 +5,7 @@ import VendorSignUp from './pages/VendorSignUp';
 import VendorLogin from './pages/VendorLogin';
 import ForgotPassword from './pages/ForgotPassword';
 import VendorDashboard from './pages/VendorDashboard';
-import ProductCatalogue from './pages/ProductCatalogue';
+import ProductCatalogue from './pages/productCatalog/ProductCatalogue';
 import ClientDashboard from './pages/ClientDashboard';
 
 function App() {
