@@ -7,6 +7,8 @@ import ForgotPassword from './pages/ForgotPassword';
 import VendorDashboard from './pages/VendorDashboard';
 import ProductCatalogue from './pages/productCatalog/ProductCatalogue';
 import ClientDashboard from './pages/ClientDashboard';
+import ClientSignup from './pages/client auth/ClientSignup';
+import ClientLogin from './pages/client auth/ClientLogin';
 
 function App() {
   const router = createBrowserRouter([
@@ -33,6 +35,14 @@ function App() {
     {
       path: '/clientdash',
       element: <ClientDashboard />
+    },
+    {
+      path:'/clientSignup',
+      element: <ClientSignup/>
+    },
+    {
+      path:'/clientLogin',
+      element:<ClientLogin/>
     }
   ])
 
