@@ -9,8 +9,11 @@ import ProductCatalogue from './pages/productCatalog/ProductCatalogue';
 import ClientDashboard from './pages/ClientDashboard';
 import ClientSignup from './pages/client auth/ClientSignup';
 import ClientLogin from './pages/client auth/ClientLogin';
+import { ToastContainer } from 'react-toastify';
+
 import VerificationCode from './pages/VerificationCode';
 import NewPassword from './pages/CreateNewPassword';
+
 
 function App() {
   const router = createBrowserRouter([
@@ -59,6 +62,7 @@ function App() {
   return (
     <div>
       <RouterProvider router={router} />
+      <ToastContainer />
     </div>
   )
 }
