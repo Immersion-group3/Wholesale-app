@@ -1,14 +1,20 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faArrowLeftLong, faEyeSlash } from "@fortawesome/free-solid-svg-icons"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import googleIcon from "../assets/VendorImages/googleIcon.png"
 import appleIcon from "../assets/VendorImages/appleIcon.png"
 import fbIcon from "../assets/VendorImages/fbIcon.png"
 import { faEye } from "@fortawesome/free-solid-svg-icons"
 import { useState } from "react"
 import PhoneInput from "react-phone-input-2"
-
+import { GoogleAuthProvider,signInWithPopup } from "firebase/auth"
+import { auth } from "../../firebase/firebaseConfig";
 const VendorSignUp = () => {
+  const navigate = useNavigate();
+  const handleBack=()=>{
+    navigate("/");
+
+  }
   //state for password visibility
   const [showPass, setShowPass] = useState(false);
 
@@ -25,6 +31,33 @@ const VendorSignUp = () => {
     // };
 
 
+    //func to handle google auth signup
+    const handleGoogleAuth =async (event)=>{
+      const provider =  await new GoogleAuthProvider();
+      return signInWithPopup(auth,provider)
+    }
+
+    const handleSignup = async(event)=>{
+      event.preventDefault;
+
+      const form=event.target;
+      const formData = new FormData(form);
+
+      const data={
+        businessName:formData.get("businessName"),
+        phone:formData.get("phone"),
+        firstname:formData.get("firstname"),
+        lastname:formData.get("lastname"),
+        email:formData.get("password"),
+        password:formData.get("password")
+
+      }
+      try {
+        
+      } catch (error) {
+        
+      }
+    }
     return (
 
       <div>
@@ -33,11 +66,11 @@ const VendorSignUp = () => {
             <div className="w-[30%] bg-[#0d8a2e] rounded-3xl"></div>
             <div className="w-[75%] bg-[white] rounded-3xl z-1 flex flex-col pt-[3%] pl-[5%] pr-[5%]">
               <div className="h-[10%] mb-[0.5em] flex">
-                <FontAwesomeIcon icon={faArrowLeftLong} className="text-[1.5em] mt-[0.5em] mr-[5%] " />
+                <FontAwesomeIcon icon={faArrowLeftLong} onClick={handleBack} className="text-[1.5em] mt-[0.5em] mr-[5%] " />
                 <h1 className="text-[1.8em] font-semibold ">Create Account</h1></div>
               <p className="text-center mb-[0.5em]">Sign Up with </p>
               <div className="h-[100%] flex justify-center items-center gap-x-[5%] mb-[5%]">
-                <button className="w-[100%] h-[100%] border flex pt-[0.3em]">
+                <button onClick={handleGoogleAuth} className="w-[100%] h-[100%] border flex pt-[0.3em] hover:cursor-pointer">
                   <img src={googleIcon} className="h-[1.5em] ml-[10%] mr-[5%]" alt="Google" />
                   <p>Google</p>
                 </button>
@@ -54,7 +87,7 @@ const VendorSignUp = () => {
               </div>
               <hr />
               <h2 className=" font-semibold bg-[white] text-center mt-[-0.8em] w-[10%] h-[5%] ml-auto mr-auto mb-[0.5em]">OR</h2>
-              <form action="" className="mt-0 h-[100%]">
+              <form onSubmit={handleSignup} className="mt-0 h-[100%]">
                 <div className="grid grid-rows-3 grid-cols-2 gap-x-[15%] h-auto px-[5%]">
 
                   <div className="h-[100%] pb-[1em] pl-[0.5em] ">
