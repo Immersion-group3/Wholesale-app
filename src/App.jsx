@@ -5,7 +5,7 @@ import VendorSignUp from './pages/VendorSignUp';
 import VendorLogin from './pages/VendorLogin';
 import ForgotPassword from './pages/ForgotPassword';
 import VendorDashboard from './pages/VendorDashboard';
-import ProductCatalogue from './pages/productCatalog/ProductCatalogue';
+import MainContent from './pages/productCatalog/ProductCatalogue';
 import ClientDashboard from './pages/ClientDashboard';
 import ClientSignup from './pages/client auth/ClientSignup';
 import ClientLogin from './pages/client auth/ClientLogin';
@@ -13,8 +13,10 @@ import { ToastContainer } from 'react-toastify';
 
 import VerificationCode from './pages/VerificationCode';
 import NewPassword from './pages/CreateNewPassword';
+import Cart from'./pages/productCatalog/Cart';
 import ClientForgotPassword from './pages/client auth/ClientForgotPassword';
 import ClientResetPassword from './pages/client auth/ClientResetPassword';
+
 
 
 function App() {
@@ -40,8 +42,12 @@ function App() {
       element: <NewPassword/>
     },
     {
-      path: "/product-catalogue",
-      element: <ProductCatalogue />
+      path: "/MainContent",
+      element: <MainContent />
+    },
+    {
+      path:"/Cart",
+      element:<Cart/>
     },
     {
       path: "/vendordash",
