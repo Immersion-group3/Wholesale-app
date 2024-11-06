@@ -14,6 +14,9 @@ import { ToastContainer } from 'react-toastify';
 import VerificationCode from './pages/VerificationCode';
 import NewPassword from './pages/CreateNewPassword';
 import Cart from'./pages/productCatalog/Cart';
+import ClientForgotPassword from './pages/client auth/ClientForgotPassword';
+import ClientResetPassword from './pages/client auth/ClientResetPassword';
+
 
 
 function App() {
@@ -61,6 +64,14 @@ function App() {
     {
       path:'/clientLogin',
       element:<ClientLogin/>
+    },
+    {
+      path:'/clientforgotpassword',
+      element:<ClientForgotPassword />
+    },
+    {
+      path:'/clientresetpassword',
+      element:<ClientResetPassword />
     }
   ])
 

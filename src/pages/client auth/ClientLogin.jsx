@@ -1,32 +1,52 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css'; // Import Toastify CSS
-// import { loginClient } from '../services/api'; // Import your API service
+import "react-toastify/dist/ReactToastify.css"; // Import Toastify CSS
+import { apiClientLogin } from "../../services(client)/clientauth";
 
 const ClientLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate(); // Hook for programmatic navigation
+  const navigate = useNavigate(); 
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
+  
     const userData = {
       email,
       password,
     };
-
+  
     try {
-      const response = await loginClient(userData); // Call the API to log in
-      console.log(response);
-      toast.success("Login successful!"); // Success toast
-      navigate('/dashboard'); // Redirect to the dashboard or desired page
+      const response = await apiClientLogin(userData);
+  
+      // Log the full response to inspect its structure
+      console.log('Full response:', response);
+  
+      // Now that you know the response structure, adjust accordingly
+      if (response.status === 200 || response.status === 201) {
+        const token = response.data.token;  // Adjust this line based on the actual structure of your response
+  
+        console.log("Logged in successfully, token:", token);
+  
+        toast.success("Login successful!");
+  
+        // Store the token in localStorage
+        localStorage.setItem('authToken', token); // Save token for future requests
+  
+        setTimeout(() => {
+          navigate("/clientdash");
+        }, 3000);
+      } else {
+        toast.error("Login failed! Please check your credentials.");
+      }
     } catch (error) {
       console.error(error);
-      toast.error("Login failed! Please check your credentials."); // Error toast
+      toast.error("Login failed! Please check your credentials.");
     }
   };
+  
+  
 
   return (
     <section className="h-screen bg-[#c5e0b5] flex items-center justify-center">
@@ -63,9 +83,25 @@ const ClientLogin = () => {
               />
             </div>
             <div className="flex flex-col items-center">
-              <button className="mt-[1em] h-[40px] w-[150px] bg-[#0d8a2e] text-center text-[white] font-bold rounded-md shadow-md hover:bg-[#0b5e23] transition-all duration-300" type="submit">Login</button>
+              <button
+                className="mt-[1em] h-[40px] w-[150px] bg-[#0d8a2e] text-center text-[white] font-bold rounded-md shadow-md hover:bg-[#0b5e23] transition-all duration-300"
+                type="submit"
+              >
+                Login
+              </button>
               <p className="mt-[0.5em] mb-[0.5em] text-center">
-                Don't have an account? <Link to="/clientsignup" className="text-[#0d8a2e] font-semibold">Sign Up</Link>
+                <Link
+                  to="/clientforgotpassword"
+                  className="text-[#0d8a2e] font-semibold"
+                >
+                  Forgot Password?
+                </Link>
+              </p>
+              <p className="text-center">
+                Don't have an account?{" "}
+                <Link to="/clientsignup" className="text-[#0d8a2e] font-semibold">
+                  Sign Up
+                </Link>
               </p>
             </div>
           </form>
