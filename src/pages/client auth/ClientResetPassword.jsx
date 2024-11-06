@@ -28,7 +28,7 @@ const ClientResetPassword = () => {
       const userData = { firstName, lastName, email: email.trim(), password };
 
       // Call the API to trigger the forgot password flow
-      await apiClientForgotPassword(userData, token); // API call with token
+      await apiClientForgotPassword(userData, token);
 
       // Show success message and start countdown
       toast.success("Password reset link sent!");

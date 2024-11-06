@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { apiForgotPassword } from "../../services(client)/clientauth";
 
 const ClientForgotPassword = () => {
   const [email, setEmail] = useState("");
@@ -11,15 +12,13 @@ const ClientForgotPassword = () => {
     e.preventDefault();
 
     try {
-      // Call your API for password reset here
-      // Example: await apiForgotPassword(email);
-      console.log(`Password reset link sent to ${email}`);
+      await apiForgotPassword(email); // Make the API call here
       toast.success("Password reset link sent!");
 
       // Start the countdown timer for 2 minutes (120 seconds)
       setCountdown(120);
     } catch (error) {
-      console.error(error);
+      console.error("Failed to send reset link:", error);
       toast.error("Failed to send reset link. Please try again.");
     }
   };
