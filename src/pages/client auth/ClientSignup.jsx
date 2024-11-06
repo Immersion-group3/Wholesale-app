@@ -74,10 +74,8 @@ const ClientSignup = () => {
           <div className="h-[10%] mb-[0.5em]">
             <h1 className="text-[1.8em] font-semibold">Welcome, Create an account with us</h1>
           </div>
-          <hr />
-          <h2 className="font-semibold text-center mt-[-0.8em] w-[10%] mx-auto mb-[0.5em]">
-            OR
-          </h2>
+         
+          
 
           {/* Signup Form */}
           <form onSubmit={handleSignup} className="flex flex-col">
