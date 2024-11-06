@@ -3,16 +3,16 @@ import { FiTruck } from "react-icons/fi";
 import { FiFileText } from "react-icons/fi";
 import { FaArrowRight } from "react-icons/fa";
 import Sidebar from "../components/Sidebar";
-
+import { FaArrowUp } from "react-icons/fa6";
+import Chart from "../assets/images/_Chart.png"
 
 const ClientDashboard = () => {
     return (
         <div className="flex gap-10" >
-        
-            <div>
-                <Sidebar />
-            </div>
-            <div className="float-right my-10">
+
+            <Sidebar />
+
+            <div className="float-right mb-10">
                 <div className="flex mb-5">
                     <div>
                         <p className="text-2xl">Welcome</p>
@@ -25,9 +25,35 @@ const ClientDashboard = () => {
                 </div>
 
                 <div className='flex border shadow-md rounded-lg w-max h-52 p-3 gap-3 pb-3 mb-10'>
-                    <div className='bg-[#c5e0b5] border shadow-md rounded-lg w-72 h-44'></div>
-                    <div className=' bg-[#5aaf71] border shadow-md rounded-lg w-72 h-44'></div>
-                    <div className='bg-[#c2d979] border shadow-md rounded-lg w-72 h-44'></div>
+                    <div className='bg-[#c5e0b5] border shadow-md rounded-lg w-72 h-44 p-2'>
+                        <p className="text-white">Current Orders</p>
+                        <p className="text-green-800 text-5xl">06</p>
+                        <div className="flex pt-10">
+                            <p className="text-green-800 font-bold text-sm"><FaArrowUp />40%</p>
+                            <p className="text-white text-sm ">vs last month</p>
+                            <img src={Chart} alt="" className="" />
+                        </div>
+                    </div>
+                    <div className=' bg-[#5aaf71] border shadow-md rounded-lg w-72 h-44 p-2'>
+                        <p className="text-white">Total Expenses (FCFA)</p>
+                        <p className="text-[#c5e0b5] text-5xl">719 500</p>
+                        <div className="flex pt-10">
+                            <p className="text-green-800 font-bold text-sm"><FaArrowUp />12%</p>
+                            <p className="text-white text-sm ">vs last month</p>
+                            <img src={Chart} alt=""  className="text-white"/>
+
+                        </div>
+                    </div>
+                    <div className='bg-[#c2d979] border shadow-md rounded-lg w-72 h-44 p-2'>
+                    <p className="text-white">Outstanding Invoices</p>
+                        <p className="text-green-800 text-5xl">03</p>
+                        <div className="flex pt-10 ">
+                            <p className="text-green-800 font-bold text-sm"><FaArrowUp />10%</p>
+                            <p className="text-white text-sm ">vs last month</p>
+                            <img src={Chart} alt=""  className="text-white"/>
+
+                        </div>
+                    </div>
                 </div>
 
                 <div className='border shadow-md rounded-lg w-auto h-3/6 mb-10'>
