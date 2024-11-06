@@ -1,28 +1,40 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const ForgotPassword = () => {
   const emailRef = useRef();
-  const navigate=useNavigate();
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const email = emailRef.current.value;
-    console.log("Submitted:", email);
-    navigate("/verify-email")
-    // Add your form submission logic here, such as sending a verification code
+
+    try {
+      // Placeholder for form submission logic
+      console.log("Submitted:", email);
+      // await sendEmailToBackend(email); // Uncomment when backend is ready
+      navigate("/verify-email", { state: { email } });
+    } catch (error) {
+      console.error("Error:", error);
+      // Handle error here, e.g., display error message to the user
+    }
   };
+  const goToBack=()=>{
+    navigate("/vendorlogin")
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: "#c5e0b5" }}>
       <div className="p-8 rounded-lg shadow-lg w-full max-w-sm" style={{ backgroundColor: "#ffffff" }}>
         <h2 className="text-2xl font-semibold text-center mb-4">Forgot password</h2>
-        
+
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label htmlFor="email" className="block text-gray-700">
               Email
             </label>
             <input
+              name="email"
               type="email"
               id="email"
               placeholder="Enter your email"
@@ -34,7 +46,7 @@ const ForgotPassword = () => {
           <p className="text-gray-600 text-sm">
             We’ll send a verification code to this email if it matches an existing account.
           </p>
-          
+
           <button
             type="submit"
             className="w-full py-2 rounded-md font-semibold transition"
@@ -44,7 +56,7 @@ const ForgotPassword = () => {
           </button>
           <button
             type="button"
-            onClick={() => console.log("Back")}
+            onClick={goToBack}
             className="w-full py-2 rounded-md font-semibold mt-2"
             style={{ color: "#0d8a2e" }}
           >
