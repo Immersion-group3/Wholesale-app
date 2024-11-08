@@ -7,3 +7,7 @@ export const apiVendorSignUp = async(payload) =>{
 export const apiVendorLogin = async(payload)=>{
     return await apiClient.post("/clients/signin",payload)
 }
+
+export const apiVendorForgotPassword = async(payload)=>{
+    return await apiClient.post("clients/forgot-password",payload)
+}
