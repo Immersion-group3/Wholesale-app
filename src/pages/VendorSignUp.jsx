@@ -64,7 +64,7 @@ const VendorSignUp = () => {
       }
       
     } catch (error) {
-       if(response.status=== 409){
+       if(error.response && error.response.status === 409){
         toast.error("This account already exists. Go ahead and log in.")
       }
       else{
