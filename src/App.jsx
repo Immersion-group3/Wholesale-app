@@ -18,6 +18,8 @@ import ClientForgotPassword from './pages/client auth/ClientForgotPassword';
 import ClientResetPassword from './pages/client auth/ClientResetPassword';
 import ClientOrderDetails from './pages/clientOrderDetails/clientOrderDetails';
 
+
+
 function App() {
   const router = createBrowserRouter([
     {
@@ -76,6 +78,7 @@ function App() {
       path:'/clientorderdetails',
       element:<ClientOrderDetails/>
     },
+
   ])
 
   return (

@@ -1,5 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { apiVendorForgotPassword } from "../services(vendor)/authVendor";
+import { toast } from "react-toastify";
 
 const ForgotPassword = () => {
   const emailRef = useRef();
@@ -12,17 +14,39 @@ const ForgotPassword = () => {
     try {
       // Placeholder for form submission logic
       console.log("Submitted:", email);
-      // await sendEmailToBackend(email); // Uncomment when backend is ready
-      navigate("/verify-email", { state: { email } });
+       const response = await sendEmailToBackend(email);
+      
+       if(response.status===200){
+        toast.success("Check your email for the verification code")
+        navigate("/resetpassword", { state: { email } });
+       }
+       else{
+        throw new Error("Failed to send email");
+        
+       }
+
     } catch (error) {
       console.error("Error:", error);
+      toast.error("An error occurred while sending the email. Please try again.")
       // Handle error here, e.g., display error message to the user
     }
   };
   const goToBack=()=>{
     navigate("/vendorlogin")
   }
-
+  const sendEmailToBackend = async(email)=>{
+    try {
+      console.log("Sending email request to backend:", email);
+      // const response = await apiVendorForgotPassword(email);
+      // console.log("Resoponse received:",response)
+      // return response;
+      return await apiVendorForgotPassword({email});
+    } catch (error) {
+      console.error("Error in sending email", error);
+      throw error;
+    }
+    
+  }
   return (
     <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: "#c5e0b5" }}>
       <div className="p-8 rounded-lg shadow-lg w-full max-w-sm" style={{ backgroundColor: "#ffffff" }}>
