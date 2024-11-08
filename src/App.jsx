@@ -16,6 +16,8 @@ import NewPassword from './pages/CreateNewPassword';
 import Cart from'./pages/productCatalog/Cart';
 import ClientForgotPassword from './pages/client auth/ClientForgotPassword';
 import ClientResetPassword from './pages/client auth/ClientResetPassword';
+import ClientOrderDetails from './pages/clientOrderDetails/clientOrderDetails';
+
 
 
 function App() {
@@ -72,6 +74,11 @@ function App() {
       path:'/clientresetpassword',
       element:<ClientResetPassword />
     },
+    {
+      path:'/clientorderdetails',
+      element:<ClientOrderDetails/>
+    },
+
   ])
 
   return (
