@@ -16,6 +16,8 @@ import NewPassword from './pages/CreateNewPassword';
 import Cart from'./pages/productCatalog/Cart';
 import ClientForgotPassword from './pages/client auth/ClientForgotPassword';
 import ClientResetPassword from './pages/client auth/ClientResetPassword';
+import AddProducts from './pages/addProducts';
+import VendorProductCatalogue from './pages/addProducts/VendorProductCatalogue';
 
 
 
@@ -72,6 +74,14 @@ function App() {
     {
       path:'/clientresetpassword',
       element:<ClientResetPassword />
+    },
+    {
+    path:'/addvendproducts',
+    element: <AddProducts />
+    },
+    {
+      path:'/vendcatalogue',
+      element: <VendorProductCatalogue />
     }
   ])
 
