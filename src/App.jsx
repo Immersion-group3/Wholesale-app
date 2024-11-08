@@ -16,6 +16,8 @@ import NewPassword from './pages/CreateNewPassword';
 import Cart from'./pages/productCatalog/Cart';
 import ClientForgotPassword from './pages/client auth/ClientForgotPassword';
 import ClientResetPassword from './pages/client auth/ClientResetPassword';
+import VendorDashboard2 from './pages/(2)VendorDashboard';
+import VendorOrderDetails2 from './pages/(2)VendorOrderDetails';
 
 
 
@@ -38,7 +40,7 @@ function App() {
       element: <VerificationCode/>
     },
     {
-      path: "create-new-password",
+      path: "/resetpassword",
       element: <NewPassword/>
     },
     {
@@ -52,6 +54,14 @@ function App() {
     {
       path: "/vendordash",
       element: <VendorDashboard />
+    },
+    {
+      path: "/vendordash2",
+      element: <VendorDashboard2 />
+    },
+    {
+      path: "/orderdetails2",
+      element: <VendorOrderDetails2/>
     },
     {
       path: '/clientdash',

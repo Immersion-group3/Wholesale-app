@@ -74,15 +74,7 @@ const NewPassword = () => {
             </div>
           </div>
 
-          <div className="flex items-center">
-            <input
-              type="checkbox"
-              checked={requireSignIn}
-              onChange={() => setRequireSignIn(!requireSignIn)}
-              className="mr-2"
-            />
-            <label className="text-gray-700">Require all devices to sign in with new password</label>
-          </div>
+          
 
           <button
             type="submit"
