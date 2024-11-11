@@ -2,22 +2,23 @@ import { IoIosNotificationsOutline } from "react-icons/io";
 import Sidebar from '../components/Sidebar';
 import { BsArrowUp } from "react-icons/bs";
 import { IoMdArrowDown } from "react-icons/io";
+import { Link } from "react-router-dom";
 import { BsApp } from "react-icons/bs";
 import Line from '../assets/images/Line.png';
 import Line2 from '../assets/images/Line2.png';
 import { useEffect, useState } from "react";
 import VendorDashSidebar from "../components/VendorDashSidebar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFileInvoice, faTruck } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeftLong, faCircleDot, faFileInvoice, faTruck } from "@fortawesome/free-solid-svg-icons";
 
 const VendorDashboard2 = () => {
   const [orders, setOrders] = useState([]);
 
   //state to handle visibility of pup up
-  const [isTrackingVisible,setIsTrackingVisible]=useState();
+  const [isTrackingVisible, setIsTrackingVisible] = useState();
 
   //function to handle pop
-  const handlePopUp=()=>{
+  const handlePopUp = () => {
     setIsTrackingVisible(!isTrackingVisible);
 
   }
@@ -38,7 +39,7 @@ const VendorDashboard2 = () => {
   return (
     <div className="flex h-screen bg-gray-100 overflow-y">
       {/* Sidebar with sticky positioning */}
-      <VendorDashSidebar/>
+      <VendorDashSidebar />
 
       <div className="flex-1 p-6">
         {/* Header Section */}
@@ -112,13 +113,13 @@ const VendorDashboard2 = () => {
                   <p>{order.amount}</p>
                   <p>{order.status}</p>
                   <p>
-                    <button onClick={handlePopUp}><FontAwesomeIcon icon={faTruck}/></button>
-                    <Link to="/orderdetails"><FontAwesomeIcon icon={faFileInvoice}/></Link>
+                    <button onClick={handlePopUp}><FontAwesomeIcon icon={faTruck} /></button>
+                    <Link to="/orderdetails"><FontAwesomeIcon icon={faFileInvoice} /></Link>
                   </p>
                 </div>
               ))
             ) : (
-              <p className="text-center text-gray-500 py-4">No orders available</p>
+              <p className="text-center text-gray-500 py-4" onClick={handlePopUp}>No orders available</p>
             )}
           </div>
         </div>
@@ -126,13 +127,47 @@ const VendorDashboard2 = () => {
 
       {/* OVERLAY */}
       {isTrackingVisible && (
-        <div onClick={handlePopUp} className="fiexed inset-0 bg-black bg-opacity-50 z-40"></div>
+        <div onClick={handlePopUp} className="fixed inset-0 bg-black bg-opacity-70 z-40"></div>
       )}
 
       {/* POP UP */}
       {isTrackingVisible && (
-        <div>
-            THIS IS THE ORDER TRACKING POP UP
+        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3/4 max-w-lg bg-white p-4 rounded-lg shadow-lg z-50 h-[70%]">
+          <div className="flex h-[5%] items-center">
+            <Link to="/vendordash2"><FontAwesomeIcon icon={faArrowLeftLong} className="mr-[1em]" /></Link>
+            <p>Back</p>
+          </div>
+          <div className="">
+            <h2 className='flex items-baseline font-bold text-[1.2em] text-[#0d8a2e] ml-[1.5em] w-[80%] border-b-2'>Order Tracking</h2>
+          </div>
+          <div className="w-[80%] ml-[1.5em] border-b-2">
+            <div className='flex mb-[0.3em]'>
+              <p className='font-medium mr-[0.5em]'>Creation Date :</p>
+              <p>Hi</p>
+            </div>
+            <div className='flex mb-[0.3em]'>
+              <p className='font-medium mr-[0.5em]'>Current Status :</p>
+              <p>Hi</p>
+            </div>
+            <div className='flex mb-[0.3em]'>
+              <p className='font-medium mr-[0.5em]'>Delivery Date :</p>
+              <p>Hi</p>
+            </div>
+          </div>
+
+          <div className="border-b-2 ml-[1.5em]">
+          <p className='font-medium mr-[0.5em] '>Delivery Stage:</p>
+          <p>Bar</p>
+          </div>
+          <div className="border flex flex-col">
+          <p className='font-medium ml-[1.5em] '>Route:</p>
+          <div className="ml-[1.5em] w-full flex justify-center">
+            <FontAwesomeIcon icon={faCircleDot} className="mr-[0.5em]"/>
+            <p>BALI 4/37 Manga Bell</p>
+            <div className="mt-[1.5em] border-l-2 border-dotted h-[2em]"></div>
+
+          </div>
+          </div>
         </div>
       )}
     </div>

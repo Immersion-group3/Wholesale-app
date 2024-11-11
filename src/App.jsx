@@ -17,6 +17,8 @@ import AddProduct from './pages/productCatalog/AddProduct';
 import ClientForgotPassword from './pages/client auth/ClientForgotPassword';
 import ClientResetPassword from './pages/client auth/ClientResetPassword';
 import ClientOrderDetails from './pages/clientOrderDetails/clientOrderDetails';
+import VendorDashboard2 from './pages/(2)VendorDashboard';
+import VendorOrderDetails2 from './pages/(2)VendorOrderDetails';
 
 
 
@@ -53,6 +55,14 @@ function App() {
     {
       path: "/vendordash",
       element: <VendorDashboard />
+    },
+    {
+      path: "/vendordash2",
+      element: <VendorDashboard2/>
+    },
+    {
+      path: "/vendororderdetails2",
+      element: <VendorOrderDetails2/>
     },
     {
       path: '/clientdash',
