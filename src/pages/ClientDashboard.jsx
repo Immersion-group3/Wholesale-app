@@ -25,6 +25,8 @@ const ClientDashboard = () => {
 
     }, []);
 
+
+
     return (
         <div className="flex gap-20" >
 
@@ -103,7 +105,7 @@ const ClientDashboard = () => {
                         <p>delivered</p>
 
                         <div className="flex gap-5">
-                            <Link><span className="text-xl"><FiTruck /></span></Link>
+                            <Link><button className="text-xl"><FiTruck /></button></Link>
                             <Link to='/clientorderdetails'><span className="text-xl"><FiFileText /></span></Link>
                         </div>
                         {
