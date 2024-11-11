@@ -18,6 +18,8 @@ import ClientForgotPassword from './pages/client auth/ClientForgotPassword';
 import ClientResetPassword from './pages/client auth/ClientResetPassword';
 import GetAll from './pages/client product catalog/GetAll';
 import ClientOrderDetails from './pages/clientOrderDetails/clientOrderDetails';
+import AddProducts from './pages/addProducts';
+import VendorProductCatalogue from './pages/addProducts/VendorProductCatalogue';
 
 
 
@@ -82,6 +84,15 @@ function App() {
       path:'/clientorderdetails',
       element:<ClientOrderDetails/>
     },
+    {
+      path:'/vendproductcatalogue',
+      element: <VendorProductCatalogue />
+    },
+    {
+      path:"/addprod",
+      element: <AddProducts />
+    }
+
 
   ])
 
