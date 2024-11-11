@@ -88,7 +88,7 @@ const [loading ,setLoading] = useState(true);
       <Sidebar />
       <div className="flex flex-col w-full">
         <div>
-          <h2 className="text-3xl font-semibold mb-2">Product Catalog</h2>
+          <h2 className="text-3xl font-semibold mb-2 ml-10">Product Catalog</h2>
           <p className="text-gray-500 mb-4">
             Explore our diverse selection of fresh agricultural produce.
           </p>
