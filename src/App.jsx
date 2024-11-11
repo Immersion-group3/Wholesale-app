@@ -18,6 +18,9 @@ import ClientForgotPassword from './pages/client auth/ClientForgotPassword';
 import ClientResetPassword from './pages/client auth/ClientResetPassword';
 import GetAll from './pages/client product catalog/GetAll';
 import ClientOrderDetails from './pages/clientOrderDetails/clientOrderDetails';
+import OrderManagementPage from './pages/orderManagementClients/orderManagement';
+import OrderTrackingPage from './pages/orderManagementClients/OrderTrackingPage';
+import OrderDetailPage from './pages/orderManagementClients/OrderDetailPage';
 
 import VendorDashboard2 from './pages/(2)VendorDashboard';
 import VendorOrderDetails2 from './pages/(2)VendorOrderDetails';
@@ -57,6 +60,18 @@ function App() {
     {
       path:"/addProduct",
       element:<AddProduct/>
+    },
+    {
+      path:"/orderManagementClient",
+      element:<OrderManagementPage/>
+    },
+    {
+      path:"/orderTrackingpage",
+      element:<OrderTrackingPage/>
+    },
+    {
+      path:"orderDetailPage",
+      element:<OrderDetailPage/>
     },
     {
       path: "/vendordash",
