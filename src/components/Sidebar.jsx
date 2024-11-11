@@ -20,7 +20,7 @@ const Sidebar = () => {
             onMouseEnter={() => setIsExpanded(true)} onMouseLeave={() => setIsExpanded(false)}>
             <div className="w-[20vw] h-full">
                 <img src={Logo} alt="" className={`m-5 bg-[#c5e0b5] ${isExpanded ? '' : 'w-[3vw]'}`} />
-                <div className={`border-2 h-[130vh] w-[20vw] mt-5 rounded-t-2xl bg-[#0D8A2E] border-[#0D8A2E] text-white font-semibold transition-all duration-300 ${isExpanded ? 'w-[18vw]' : 'w-[5vw]'} h-full`}>
+                <div className={`border-2 h-[130vh] w-[18vw] mt-5 rounded-t-2xl bg-[#0D8A2E] border-[#0D8A2E] text-white font-semibold transition-all duration-300 ${isExpanded ? 'w-[18vw]' : 'w-[5vw]'} h-full`}>
                     <div className={`flex gap-2 border-2 m-5 p-1 rounded-lg bg-white border-white text-slate-400 ${!isExpanded ? 'hidden' : ''}`}>
                         <p className="mt-1.5"><IoSearch /></p>
                         {isExpanded && <p>Search</p>}
