@@ -47,31 +47,31 @@ function App() {
     },
     {
       path: "/verify-email",
-      element: <VerificationCode/>
+      element: <VerificationCode />
     },
     {
       path: "create-new-password",
-      element: <NewPassword/>
+      element: <NewPassword />
     },
     {
       path: "/productCatalog",
-      element: <ProductCatalog/>
+      element: <ProductCatalog />
     },
     {
-      path:"/addProduct",
-      element:<AddProduct/>
+      path: "/addProduct",
+      element: <AddProduct />
     },
     {
-      path:"/orderManagementClient",
-      element:<OrderManagementPage/>
+      path: "/orderManagementClient",
+      element: <OrderManagementPage />
     },
     {
-      path:"/orderTrackingpage",
-      element:<OrderTrackingPage/>
+      path: "/orderTrackingpage",
+      element: <OrderTrackingPage />
     },
     {
-      path:"orderDetailPage",
-      element:<OrderDetailPage/>
+      path: "orderDetailPage",
+      element: <OrderDetailPage />
     },
     {
       path: "/vendordash",
@@ -79,45 +79,46 @@ function App() {
     },
     {
       path: "/vendordash2",
-      element: <VendorDashboard2/>
+      element: <VendorDashboard2 />
     },
     {
       path: "/vendororderdetails2",
-      element: <VendorOrderDetails2/>
+      element: <VendorOrderDetails2 />
     },
     {
       path: '/clientdash',
       element: <ClientDashboard />
     },
     {
-      path:'/clientSignup',
-      element: <ClientSignup/>
+      path: '/clientSignup',
+      element: <ClientSignup />
     },
     {
-      path:'/clientLogin',
-      element:<ClientLogin/>
+      path: '/clientLogin',
+      element: <ClientLogin />
     },
     {
-      path:'/clientforgotpassword',
-      element:<ClientForgotPassword />
+      path: '/clientforgotpassword',
+      element: <ClientForgotPassword />
     },
     {
-      path:'/resetpassword',
-      element:<ClientResetPassword />
+      path: '/resetpassword',
+      element: <ClientResetPassword />
     },
     {
-      path:'/clientproductcatalog',
-      element:<GetAll />
-    },
-      path:'/clientorderdetails',
-      element:<ClientOrderDetails/>
+      path: '/clientproductcatalog',
+      element: <GetAll />
     },
     {
-      path:'/vendproductcatalogue',
+      path: '/clientorderdetails',
+      element: <ClientOrderDetails />
+    },
+    {
+      path: '/vendproductcatalogue',
       element: <VendorProductCatalogue />
     },
     {
-      path:"/addprod",
+      path: "/addprod",
       element: <AddProducts />
     }
 
