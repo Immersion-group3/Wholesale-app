@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"; 
 import { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -12,11 +12,9 @@ const ClientForgotPassword = () => {
     e.preventDefault();
 
     try {
-      await apiForgotPassword(email); // Make the API call here
-      toast.success("Password reset link sent!");
-
-      // Start the countdown timer for 2 minutes (120 seconds)
-      setCountdown(120);
+      await apiForgotPassword(email);
+      toast.success("Password reset link sent! Check your email.");
+      setCountdown(120); // Set the countdown to 120 seconds
     } catch (error) {
       console.error("Failed to send reset link:", error);
       toast.error("Failed to send reset link. Please try again.");
@@ -40,12 +38,9 @@ const ClientForgotPassword = () => {
             Forgot Password?
           </h1>
           <p className="text-center mb-4">
-            Please enter your email address to reset your password.
+            Please enter your email address to receive a reset password link.
           </p>
-          <form
-            onSubmit={handleForgotPassword}
-            className="w-full flex flex-col items-center"
-          >
+          <form onSubmit={handleForgotPassword} className="w-full flex flex-col items-center">
             <div className="w-full mb-4">
               <label htmlFor="email" className="block">
                 Email

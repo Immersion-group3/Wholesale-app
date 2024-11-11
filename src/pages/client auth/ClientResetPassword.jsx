@@ -1,17 +1,19 @@
-import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { useParams, Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { apiClientForgotPassword } from "../../services(client)/clientauth";
 
 const ClientResetPassword = () => {
+  const { token } = useParams(); // Retrieve the token from the URL
+  const navigate = useNavigate();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [countdown, setCountdown] = useState(0);
 
-  const handleForgotPassword = async (e) => {
+  const handleResetPassword = async (e) => {
     e.preventDefault();
 
     // Validate that all fields are filled
@@ -20,24 +22,19 @@ const ClientResetPassword = () => {
       return;
     }
 
-    // Retrieve the token from local storage
-    const token = localStorage.getItem("authToken");
-
     try {
-      // Prepare the data for the request
+      // Prepare the data for the reset password request
       const userData = { firstName, lastName, email: email.trim(), password };
 
-      // Call the API to trigger the forgot password flow
+      // Call the API with the token included
       await apiClientForgotPassword(userData, token);
 
-      // Show success message and start countdown
-      toast.success("Password reset link sent!");
-
-      // Start the countdown timer for 2 minutes (120 seconds)
-      setCountdown(120);
+      // Show success message and navigate to login page after reset
+      toast.success("Password successfully reset!");
+      setTimeout(() => navigate("/clientlogin"), 2000);
     } catch (error) {
-      console.error("Forgot password request failed:", error);
-      toast.error("Failed to send reset link. Please try again.");
+      console.error("Password reset failed:", error);
+      toast.error("Failed to reset password. Please try again.");
     }
   };
 
@@ -54,9 +51,9 @@ const ClientResetPassword = () => {
       <ToastContainer />
       <div className="bg-white w-[85%] max-w-[500px] rounded-2xl flex justify-center items-center shadow-lg p-6">
         <div className="w-full flex flex-col items-center">
-          <h1 className="text-[1.5em] font-semibold text-center">Forgot Password?</h1>
+          <h1 className="text-[1.5em] font-semibold text-center">Reset Password</h1>
           <p className="text-center mb-4">Please enter your details to reset your password.</p>
-          <form onSubmit={handleForgotPassword} className="w-full flex flex-col items-center">
+          <form onSubmit={handleResetPassword} className="w-full flex flex-col items-center">
             <div className="w-full mb-4">
               <label htmlFor="firstName" className="block">First Name</label>
               <input
@@ -110,7 +107,7 @@ const ClientResetPassword = () => {
               type="submit"
               disabled={countdown > 0}
             >
-              {countdown > 0 ? `Resend in ${countdown}s` : "Send Reset Link"}
+              {countdown > 0 ? `Resend in ${countdown}s` : "Reset Password"}
             </button>
           </form>
           <p className="mt-4 text-center">
