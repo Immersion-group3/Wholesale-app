@@ -1,52 +1,82 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Sidebar from '../../components/Sidebar';
 
-const products = [
-  {
-    id: 1,
-    name: "Butternut",
-    price: "2500 Fcfa / Kg",
-    stock: "8 kg available",
-    image: "path/to/butternut.jpg",
-  },
-  {
-    id: 2,
-    name: "Carotte jaune",
-    price: "1800 Fcfa / Kg",
-    stock: "Out of stock",
-    image: "path/to/carrot.jpg",
-  },
-  {
-    id: 3,
-    name: "Céleri branche",
-    price: "850 Fcfa/Kg",
-    stock: "6 kg available",
-    image: "path/to/celery.jpg",
-  },
-  {
-    id: 4,
-    name: "Courgette ancienne",
-    price: "1200 Fcfa/Kg",
-    stock: "150 kg available",
-    image: "path/to/courgette.jpg",
-  },
-  {
-    id: 5,
-    name: "Hairicot vert",
-    price: "900 Fcfa/Kg",
-    stock: "85 kg available",
-    image: "path/to/hairicot.jpg",
-  },
-  {
-    id: 6,
-    name: "Pleurote fraiche",
-    price: "1500 Fcfa/Kg",
-    stock: "20 trays disponibles",
-    image: "path/to/pleurote.jpg",
-  },
-];
+// const products = [
+//   {
+//     id: 1,
+//     name: "Butternut",
+//     price: "2500 Fcfa / Kg",
+//     stock: "8 kg available",
+//     image: "path/to/butternut.jpg",
+//   },
+//   {
+//     id: 2,
+//     name: "Carotte jaune",
+//     price: "1800 Fcfa / Kg",
+//     stock: "Out of stock",
+//     image: "path/to/carrot.jpg",
+//   },
+//   {
+//     id: 3,
+//     name: "Céleri branche",
+//     price: "850 Fcfa/Kg",
+//     stock: "6 kg available",
+//     image: "path/to/celery.jpg",
+//   },
+//   {
+//     id: 4,
+//     name: "Courgette ancienne",
+//     price: "1200 Fcfa/Kg",
+//     stock: "150 kg available",
+//     image: "path/to/courgette.jpg",
+//   },
+//   {
+//     id: 5,
+//     name: "Hairicot vert",
+//     price: "900 Fcfa/Kg",
+//     stock: "85 kg available",
+//     image: "path/to/hairicot.jpg",
+//   },
+//   {
+//     id: 6,
+//     name: "Pleurote fraiche",
+//     price: "1500 Fcfa/Kg",
+//     stock: "20 trays disponibles",
+//     image: "path/to/pleurote.jpg",
+//   },
+// ];
 
 const VendorProductCatalogue = () => {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const getProducts = async () => {
+    try {
+      const response = await apiAllProducts();
+      const formattedProducts = response.data.map((product) => ({
+        id: product._id,
+        title: product.title,
+        price: Number(product.price),
+        stock: product.availability,
+        description: product.description, // corrected
+        image: product.image, // added
+      }));
+      setProducts(formattedProducts);
+    } catch (error) {
+      console.error("Error fetching products", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getProducts();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div>
       <div className='flex'>
