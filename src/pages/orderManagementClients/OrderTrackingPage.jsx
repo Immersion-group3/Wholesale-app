@@ -1,17 +1,30 @@
 import React from 'react';
-import { FaArrowLeft } from 'react-icons/fa';
 import { MdLocationOn, MdPhone } from 'react-icons/md';
+import { Link } from 'react-router-dom';
+import { TbArrowBack } from "react-icons/tb";
+import { IoMdClose } from "react-icons/io";
 
-const OrderTrackingPage = () => {
+const OrderTrackingPage = ({ onClose }) => {
+  
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-      {/* Popup Panel */}
-      <div className="bg-white p-6 w-full max-w-lg h-auto rounded-lg shadow-lg">
+    <div className="relative bg-white p-6 rounded-lg shadow-lg w-full max-w-md mx-auto">
+      {/* Header with Back and Close buttons */}
+      <div className="flex justify-between items-center mb-4">
         {/* Back Button */}
-        <button className="flex items-center text-gray-600 mb-6">
-          <FaArrowLeft className="mr-2" />
-          <span>Back</span>
+        <button className="flex items-center text-gray-700 hover:text-gray-900 font-semibold">
+          <TbArrowBack size={20} />
+          <span className="ml-2">Back</span>
         </button>
+
+        {/* Close Button */}
+        <button
+          onClick={onClose}
+          className="text-gray-700 hover:text-red-600"
+          aria-label="Close"
+        >
+          <IoMdClose size={24} />
+        </button>
+      </div>
 
         {/* Order Tracking Header */}
         <h2 className="text-xl font-bold text-green-700 mb-4">Order Tracking</h2>
@@ -69,7 +82,7 @@ const OrderTrackingPage = () => {
           </div>
         </div>
       </div>
-    </div>
+    
   );
 };
 

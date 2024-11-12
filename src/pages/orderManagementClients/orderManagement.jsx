@@ -9,11 +9,8 @@ import { IoMdArrowDown } from "react-icons/io";
 import { TbArrowBack } from "react-icons/tb";
 import { CiSearch } from "react-icons/ci";
 import Popup from "../orderManagementClients/Popup";
-import OrderTrackingPage from "../orderManagementClients/OrderTrackingPage"
-
-
-
-
+import OrderTrackingPage from "../orderManagementClients/OrderTrackingPage";
+import { Link } from "react-router-dom";
 
 const OrderManagementPage = () => {
   // For the variables for filters, search, and pagination
@@ -22,43 +19,25 @@ const OrderManagementPage = () => {
   const [amount, setAmount] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [isPopupOpen, setIsPopupOpen] = useState(false); // Moved this line to the right position
 
   const orders = [
-    // Dummy data
-    {
-      id: "978-0-574-6989-8",
-      date: "17/08/2024",
-      amount: "80,000",
-      status: "In Preparation",
-    },
-    {
-      id: "978-1-111-8937-9",
-      date: "17/09/2024",
-      amount: "142,800",
-      status: "In Transit",
-    },
-    {
-      id: "978-0-8234-7432-1",
-      date: "20/10/2024",
-      amount: "42,500",
-      status: "Delivered",
-    },
-    {
-      id: "978-0-8732-7483-3",
-      date: "31/07/2024",
-      amount: "62,200",
-      status: "Canceled",
-    },
+    { id: "978-0-574-6989-8", date: "17/08/2024", amount: "80,000", status: "In Preparation" },
+    { id: "978-1-111-8937-9", date: "17/09/2024", amount: "142,800", status: "In Transit" },
+    { id: "978-0-8234-7432-1", date: "20/10/2024", amount: "42,500", status: "Delivered" },
+    { id: "978-0-8732-7483-3", date: "31/07/2024", amount: "62,200", status: "Canceled" },
   ];
 
   const totalPages = 10;
 
-  const [isPopupOpen, setIsPopupOpen]=useState(false);
+  const handleOpenPopup = (event) => {
+    event.preventDefault(); 
+    setIsPopupOpen(true);
+  };
 
-  const handleOpenPopup =() => setIsPopupOpen(true)
-
-  const handleClosePopup = () => setIsPopupOpen(false)
-
+  const handleClosePopup = () => setIsPopupOpen(false);
+  
+  
   return (
     <div className="flex h-screen bg-white">
       {/* Sidebar */}
@@ -68,9 +47,7 @@ const OrderManagementPage = () => {
 
       <section className="flex-1 p-6">
         <h1 className="text-3xl font-semibold">Orders Tracking</h1>
-        <p className="text-gray-500">
-          Track and manage all orders in one place.
-        </p>
+        <p className="text-gray-500">Track and manage all orders in one place.</p>
 
         {/* Filters and Search */}
         <div className="flex items-center gap-4 mb-4">
@@ -128,11 +105,11 @@ const OrderManagementPage = () => {
         {/* Searchbar and button */}
         <div className="flex justify-between items-center mb-4">
           <div className="relative">
-            <span className="absolute inset-y-0 left-3 flex items-center  text-gray-600 ">
+            <span className="absolute inset-y-0 left-3 flex items-center text-gray-600">
               <CiSearch />
             </span>
             <input
-              className="border border-gray-100 rounded-lg pl-10 pr-4 py-2 flex-1 w-full  "
+              className="border border-gray-100 rounded-lg pl-10 pr-4 py-2 flex-1 w-full"
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -140,18 +117,18 @@ const OrderManagementPage = () => {
             />
           </div>
 
-          <div>
-            <button className="bg-green-800 text-white rounded-lg p-1">
-              Place an Order
-            </button>
-          </div>
+          <button className="bg-green-800 text-white rounded-lg p-1">
+            Place an Order
+          </button>
         </div>
 
-        {/* table starts here */}
+        {/* Table starts here */}
         <form>
           <table className="w-full bg-white shadow-md mt-6 rounded-lg overflow-hidden">
             <thead className="bg-white text-left justify-evenly">
-              <p className="ml-10 text-green-600 mt-3 font-bold">All Orders</p>
+              <tr>
+                <th colSpan="6" className="ml-10 text-green-600 mt-3 font-bold">All Orders</th>
+              </tr>
             </thead>
             <tbody>
               <tr className="border">
@@ -165,20 +142,14 @@ const OrderManagementPage = () => {
                   </span>
                 </th>
                 <th className="p-4 font-semibold text-gray-700">Date</th>
-                <th className="p-4 font-semibold text-gray-700">
-                  Amount (FCFA)
-                </th>
+                <th className="p-4 font-semibold text-gray-700">Amount (FCFA)</th>
                 <th className="p-4 font-semibold text-gray-700">Status</th>
-                <th className="p-4 font-semibold text-gray-700">
-                  Quick Actions
-                </th>
+                <th className="p-4 font-semibold text-gray-700">Quick Actions</th>
               </tr>
               {orders.map((order, index) => (
                 <tr
                   key={order.id}
-                  className={`text-center border-b ${
-                    index % 2 === 0 ? "bg-blue-50" : "bg-white"
-                  } hover:bg-blue-100`}
+                  className={`text-center border-b ${index % 2 === 0 ? "bg-blue-50" : "bg-white"} hover:bg-blue-100`}
                 >
                   <td className="p-4">
                     <input type="checkbox" name={`order-${order.id}`} />
@@ -202,26 +173,20 @@ const OrderManagementPage = () => {
                     </span>
                   </td>
                   <td className="p-4 flex justify-center gap-4 text-gray-600">
-                  
-                  {/* for popup function */}
-                  <div>
-                      <button onClick={handleOpenPopup} className="hover:text-green-500 transition-colors duration-200">
-                        <CiDeliveryTruck size={20} />
-                      </button>
-
-                      <Popup isOpen={isPopupOpen} onClose={handleClosePopup}>
-                        <OrderTrackingPage />
-                      </Popup>
-                    </div>
-                    
-                    <button className="hover:text-blue-500 transition-colors duration-200">
-                      <TbFileDescription size={20} />
+                    <button
+                      onClick={handleOpenPopup}
+                      className="hover:text-green-500 transition-colors duration-200"
+                    >
+                      <CiDeliveryTruck size={20} />
                     </button>
+
+                    <Link to = "/orderDetailPage"><button className="hover:text-blue-500 transition-colors duration-200">
+                      <TbFileDescription size={20} />
+                    </button></Link>
                   </td>
                 </tr>
               ))}
             </tbody>
-            {/* Pagination inside table */}
             <tfoot>
               <tr>
                 <td colSpan="6" className="p-4">
@@ -256,6 +221,19 @@ const OrderManagementPage = () => {
           </table>
         </form>
       </section>
+
+      {/* Popup */}
+      <Popup isOpen={isPopupOpen} onClose={handleClosePopup}>
+      <div className="relative bg-white p-6 rounded-lg shadow-lg">
+    <button 
+      onClick={handleClosePopup} 
+      className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 focus:outline-none"
+    >
+      ✕
+    </button>
+    <OrderTrackingPage onClose={handleClosePopup}/>
+  </div>
+      </Popup>
     </div>
   );
 };
