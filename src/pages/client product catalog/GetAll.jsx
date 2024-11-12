@@ -12,6 +12,10 @@ import { IoHelpBuoyOutline } from "react-icons/io5";
 import { BsChevronUp } from "react-icons/bs";
 import { MdOutlineLogout } from "react-icons/md";
 import { FaRegFileAlt } from "react-icons/fa";
+import { FaPlusCircle } from "react-icons/fa";
+import { TbArrowBack } from "react-icons/tb";
+import { FaSearch } from "react-icons/fa";
+import { IoIosClose } from "react-icons/io";
 
 const GetAll = ({ token }) => {
   const [products, setProducts] = useState([]);
@@ -20,6 +24,7 @@ const GetAll = ({ token }) => {
   const [availability, setAvailability] = useState("");
   const [cart, setCart] = useState([]);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -44,6 +49,16 @@ const GetAll = ({ token }) => {
         (p) => p.available === (availability === "Available")
       );
     setFilteredProducts(result);
+  };
+
+  const handleSearch = async (e) => {
+    const query = e.target.value.toLowerCase();
+    setSearchQuery(query);
+    const filter = JSON.stringify({
+      title: { $regex: query, $options: "i" },
+    });
+    const response = await apiSearch(filter);
+    setProducts(response.data);
   };
 
   const addToCart = (product) => {
@@ -272,8 +287,10 @@ const GetAll = ({ token }) => {
               className="p-2 border rounded text-[#a6c73a]"
             >
               <option value="">Category</option>
+              <option value="All">All</option>
               <option value="Fruits">Fruits</option>
               <option value="Vegetables">Vegetables</option>
+              <option value="Cereals">Cereals</option>
             </select>
             <select
               onChange={(e) => setAvailability(e.target.value)}
@@ -284,99 +301,156 @@ const GetAll = ({ token }) => {
               <option value="Not Available">Not Available</option>
             </select>
             <button
-              onClick={filterProducts}
-              className="p-2 bg-blue-500 text-white rounded"
+              className="flex items-center font-semibold border border-gray-100 px-4 py-2 rounded-lg"
+              onClick={() => {
+                setStatus("");
+                setDate("");
+                setAmount("");
+              }}
             >
-              Apply Filters
+              <span className="bg-red-600 text-white p-1 rounded-md mr-2">
+                <TbArrowBack />
+              </span>
+              <span className="text-red-600">Reset</span>
             </button>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-5">
-  {Array.isArray(filteredProducts) && filteredProducts.map((product) => (
-    <div key={product.id} className="border rounded-lg p-4 shadow-md flex flex-col">
-      {/* Image */}
-      <img src={product.image} alt={product.name} className="w-full h-32 object-cover rounded" />
-      
-      {/* Availability on top of Title */}
-      <p className={`text-sm font-semibold mt-2 ${product.availability === 'yes' ? 'text-[#0D8A2E]' : 'text-[#a6c73a]'}`}>
-        {product.availability === 'yes' ? 'In Stock' : 'Out of Stock'}
-      </p>
+            {Array.isArray(filteredProducts) &&
+              filteredProducts.map((product) => (
+                <div
+                  key={product.id}
+                  className="border rounded-lg p-4 shadow-md flex flex-col"
+                >
+                  {/* Image */}
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-32 object-cover rounded"
+                  />
 
-      {/* Title and Price in the same row */}
-      <div className="flex justify-between items-center mt-2">
-        <h3 className="font-bold text-lg">{product.title}</h3>
-        <p className="text-[#0d8a2e] font-bold text-sm">{product.price} FCFA/kg</p>
-      </div>
+                  {/* Availability on top of Title */}
+                  <p
+                    className={`text-sm font-semibold mt-2 ${
+                      product.availability === "yes"
+                        ? "text-[#a6c73a]"
+                        : "text-[#a6c73a]"
+                    }`}
+                  >
+                    {product.availability === "yes"
+                      ? "Available"
+                      : "Out of Stock"}
+                  </p>
 
-      {/* Description from API */}
-      <p className="text-gray-500 text-sm mt-2">{product.discription}</p>
-      
-      {/* Add to Cart Button */}
-      <button 
-        onClick={() => addToCart(product)}
-        className="mt-3 p-2 bg-[#0D8A2E] text-white rounded hover:bg-green-600 flex items-center"
-      >
-        <span className="mr-2">+</span> Add to Cart
-      </button>
-    </div>
-  ))}
-</div>
+                  {/* Title and Price in the same row */}
+                  <div className="flex justify-between items-center mt-2">
+                    <h3 className="font-bold text-lg">{product.title}</h3>
+                    <p className="text-[#0d8a2e] font-bold text-sm">
+                      {product.price} FCFA/kg
+                    </p>
+                  </div>
 
+                  {/* Description from API */}
+                  <p className="text-gray-500 text-sm mt-2">
+                    {product.discription}
+                  </p>
+
+                  {/* Add to Cart Button */}
+                  <button
+                    onClick={() =>
+                      product.availability === "yes" && addToCart(product)
+                    }
+                    disabled={product.availability !== "yes"}
+                    className={`p-2 flex items-center py-2 px-4 mt-4 w-full rounded-lg 
+          ${
+            product.availability === "yes"
+              ? "bg-[#0D8A2E] text-white hover:bg-green-600"
+              : "bg-gray-300 text-gray-500 cursor-not-allowed"
+          }`}
+                  >
+                    <FaPlusCircle className="mr-2" /> Add to Cart
+                  </button>
+                </div>
+              ))}
+          </div>
         </div>
 
         {/* Cart */}
-        <div className="w-1/3 border-l-2 p-3">
-          <h2 className="text-xl font-bold">My Cart</h2>
-          {cart.length > 0 ? (
-            <div>
-              {cart.map((item) => (
-                <div
-                  key={item.id}
-                  className="flex justify-between items-center p-2 border-b"
-                >
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="w-16 h-16 object-cover"
-                  />
-                  <div>
-                    <h3 className="font-bold">{item.name}</h3>
-                    <p>{item.price * item.quantity} FCFA</p>
-                  </div>
-                  <div className="flex gap-2">
-                    <button
-                      onClick={() => removeFromCart(item.id)}
-                      className="text-red-500"
-                    >
-                      <FaMinus />
-                    </button>
-                    <span>{item.quantity}</span>
-                    <button
-                      onClick={() => addToCart(item)}
-                      className="text-green-500"
-                    >
-                      <FaPlus />
-                    </button>
-                    <button
-                      onClick={() => clearCartItem(item.id)}
-                      className="text-gray-500"
-                    >
-                      <FaTrash />
-                    </button>
-                  </div>
-                </div>
-              ))}
-              <p className="mt-4 font-bold">Total: {totalPrice} FCFA</p>
-              <button className="mt-2 p-2 bg-blue-500 text-white rounded">
-                Checkout
-              </button>
+        <div className="h-[70vh] w-[30vw] flex flex-col gap-1">
+          <div className="flex items-center border border-gray-300 rounded-lg px-3 py-2 mb-7 max-w-sm">
+            <FaSearch className="text-gray-400" />
+            <input
+              type="text"
+              placeholder="Search"
+              value={searchQuery}
+              onChange={handleSearch}
+              className="ml-2 w-full outline-none text-gray-600"
+            />
+          </div>
+          <div className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-md">
+            <div className="flex justify-start gap-28 p-4">
+              <IoIosClose className="cursor-pointer text-gray-500 hover:text-gray-700" />
+              <h2 className="text-xl text-[#0D8A2E] font-bold">My Cart</h2>{" "}
             </div>
-          ) : (
-            <div className="text-center">
-              <p>😞 There are no products in your cart yet.</p>
-              <p>Select products from the catalog to add to your cart.</p>
-            </div>
-          )}
+            <hr />
+           
+            {cart.length > 0 ? (
+              <div>
+                {cart.map((item) => (
+                  <div
+                    key={item.id}
+                    className="flex justify-between items-center p-2 border-b"
+                  >
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="w-16 h-16 object-cover"
+                    />
+                    <div>
+                      <h3 className="font-bold">{item.name}</h3>
+                      <p>{item.price * item.quantity} FCFA</p>
+                    </div>
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => removeFromCart(item.id)}
+                        className="text-red-500"
+                      >
+                        <FaMinus />
+                      </button>
+                      <span>{item.quantity}</span>
+                      <button
+                        onClick={() => addToCart(item)}
+                        className="text-green-500"
+                      >
+                        <FaPlus />
+                      </button>
+                      <button
+                        onClick={() => clearCartItem(item.id)}
+                        className="text-red-500"
+                      >
+                        <FaTrash />
+                      </button>
+                    </div>
+                  </div>
+                ))}
+                <div className="flex items-center justify-between mt-4">
+  <p className="font-bold">Total: {totalPrice} FCFA</p>
+  <button className="flex items-center p-2 bg-[#0D8A2E] text-white    py-2 px-4 mt-4 w-2/5 rounded-lg">
+    Checkout
+    <span className="ml-2 transform -rotate-45">➔</span>
+  </button>
+</div>
+
+              </div>
+            ) : (
+              <div className="text-center flex flex-col items-center justify-center mt-10 p-4">
+  <FaShoppingCart className="w-16 h-16 mb-4 text-gray-300" />
+  <p className="text-2xl">There are no products in your cart yet... </p>
+  <p className="text-gray-500">Select products from the catalog to add to your cart.</p>
+</div>
+
+            )}
+          </div>
         </div>
       </div>
     </div>
