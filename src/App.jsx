@@ -70,7 +70,7 @@ function App() {
       element: <OrderTrackingPage />
     },
     {
-      path: "orderDetailPage",
+      path: "/orderDetailPage",
       element: <OrderDetailPage />
     },
     {
