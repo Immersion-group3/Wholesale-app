@@ -3,6 +3,7 @@ import { LuBarChart2 } from "react-icons/lu";
 import { FiShoppingCart } from "react-icons/fi";
 import { TbBox } from "react-icons/tb";
 import { BsCreditCard } from "react-icons/bs";
+import { IoIosArrowDown } from "react-icons/io";
 import { BsFileEarmarkText } from "react-icons/bs";
 import Logo from "../assets/images/Logo.png"
 import { FiSettings } from "react-icons/fi";
@@ -11,6 +12,7 @@ import { BsChevronUp } from "react-icons/bs";
 import { MdOutlineLogout } from "react-icons/md";
 import { FaRegFileAlt } from "react-icons/fa";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
     const [isExpanded, setIsExpanded] = useState(false);
@@ -33,11 +35,12 @@ const Sidebar = () => {
                     </div>
                     <div className={`flex gap-2 mb-3  hover:bg-[#a6c73a] py-1 px-2  mr-3 hover:rounded-lg ${!isExpanded ? '' : ''}`}>
                         <p className={`mt-1.5 text-[20px] ${!isExpanded ? 'border-2 border-[#095e1f] bg-[#095e1f] rounded-md  py-2 px-2' : ''}`}><FiShoppingCart /></p>
-                        {isExpanded && <p className="pt-1 ml-1">Product Catalog</p>}
+                        {isExpanded && <Link to={"/clientproductcatalog"} className="pt-1 ml-1">Product Catalog</Link>}
+                        {isExpanded && <Link to={"/addproduct"} className="pt-2.5 pl-4"><IoIosArrowDown /></Link>}
                     </div>
                     <div className={`flex gap-2 mb-3 hover:bg-[#a6c73a] py-1 px-2  mr-3 rounded-lg ${!isExpanded ? '' : ''}`}>
                         <p className={`mt-1.5 text-[20px] ${!isExpanded ? 'border-2 border-[#095e1f] bg-[#095e1f] rounded-md  py-2 px-2' : ''}`}><TbBox /></p>
-                        {isExpanded && <p className="mt-1 ml-1">Order Tracking</p>}
+                        {isExpanded && <Link to={"/orderManagementClient"} className="mt-1 ml-1">Order Tracking</Link>}
                     </div>
                     <div className={`flex gap-2 mb-3 hover:bg-[#a6c73a] py-1 px-2 mr-3 hover:rounded-lg ${!isExpanded ? '' : ''}`}>
                         <p className={`mt-1.5 text-[20px] ${!isExpanded ? 'border-2 border-[#095e1f] bg-[#095e1f] rounded-md  py-2 px-2' : ''}`}><BsCreditCard /></p>
@@ -54,7 +57,7 @@ const Sidebar = () => {
                     <div className={`flex gap-2 ml-2 mb-3 hover:bg-[#a6c73a] hover:py-1 hover:px-2  hover:mr-3 hover:rounded-lg ${!isExpanded ? '' : ''}`}>
                         <p className={`mt-1.5 text-[20px] ${!isExpanded ? 'border-2 border-[#095e1f] bg-[#095e1f] rounded-md  py-2 px-2' : ''}`}><IoHelpBuoyOutline /></p>
                         {isExpanded && <p className="ml-1 mt-1">Help and Support</p>}
-                        {isExpanded && <p className="pt-2 ml-5 mb-6"><BsChevronUp /></p>}
+                        {isExpanded && <p className="pt-2 ml-5 mb-3"><BsChevronUp /></p>}
                     </div>
                     <p className={`border-b-2 w-[14vw] ml-2 ${!isExpanded ? 'hidden' : ''}`}></p>
                     <div className={`flex mt-5 ml-2 gap-3 hover:bg-[#a6c73a] hover:py-1 hover:px-2 hover:ml-2 hover:mr-3 hover:rounded-lg ${!isExpanded ? '' : ''}`}>
