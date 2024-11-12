@@ -12,6 +12,11 @@ import { useState } from "react";
 
 const VendorDashSidebar = () => {
     const [isExpanded, setIsExpanded] = useState(false);
+    const [activeTab, setActiveTab] = useState("Dashboard");
+
+    const handleActiveTab = (label) => {
+        setActiveTab(label);
+    };
 
     return (
         <div
@@ -22,19 +27,19 @@ const VendorDashSidebar = () => {
             <img src={Logo} alt="Logo" className={`my-5 ${isExpanded ? 'w-2/3' : 'w-[3vw]'}`} />
 
             <div className={`bg-[#0D8A2E] text-white font-semibold w-full transition-all duration-300 ${isExpanded ? 'px-4' : 'px-0'} py-2`}>
-                <div className={`flex items-center gap-2 mb-3 ${isExpanded ? 'p-2 bg-white text-slate-400 rounded-lg' : 'justify-center'}`}>
+                <div className={`flex items-center gap-2 mb-3 ${isExpanded ? 'bg-white text-slate-400 rounded-lg' : 'justify-center'}`}>
                     {isExpanded && <IoSearch className="text-lg" />}
-                    {isExpanded && <input type="text" placeholder="Search" className="text-sm" />}
+                    {isExpanded && <input type="text" placeholder="Search" className="text-sm w-full py-2" />}
                 </div>
 
                 <div className="flex flex-col gap-4 items-center w-full mt-3">
-                    <SidebarItem icon={<LuBarChart2 />} label="Dashboard" isExpanded={isExpanded} />
-                    <SidebarItem icon={<FiShoppingCart />} label="Product Catalog" isExpanded={isExpanded} />
-                    <SidebarItem icon={<TbBox />} label="Order Tracking" isExpanded={isExpanded} />
-                    <SidebarItem icon={<BsCreditCard />} label="Billing" isExpanded={isExpanded} />
-                    <SidebarItem icon={<FaRegFileAlt />} label="Order List" isExpanded={isExpanded} />
-                    <SidebarItem icon={<FiSettings />} label="Account & Settings" isExpanded={isExpanded} />
-                    <SidebarItem icon={<IoHelpBuoyOutline />} label="Help & Support" isExpanded={isExpanded} />
+                    <SidebarItem icon={<LuBarChart2 />} label="Dashboard" isExpanded={isExpanded} activeTab={activeTab} handleActiveTab={handleActiveTab} />
+                    <SidebarItem icon={<FiShoppingCart />} label="Product Catalog" isExpanded={isExpanded} activeTab={activeTab} handleActiveTab={handleActiveTab} />
+                    <SidebarItem icon={<TbBox />} label="Order Tracking" isExpanded={isExpanded} activeTab={activeTab} handleActiveTab={handleActiveTab}/>
+                    <SidebarItem icon={<BsCreditCard />} label="Billing" isExpanded={isExpanded} activeTab={activeTab} handleActiveTab={handleActiveTab}/>
+                    <SidebarItem icon={<FaRegFileAlt />} label="Order List" isExpanded={isExpanded} activeTab={activeTab} handleActiveTab={handleActiveTab}/>
+                    <SidebarItem icon={<FiSettings />} label="Account & Settings" isExpanded={isExpanded} activeTab={activeTab} handleActiveTab={handleActiveTab}/>
+                    <SidebarItem icon={<IoHelpBuoyOutline />} label="Help & Support" isExpanded={isExpanded} activeTab={activeTab} handleActiveTab={handleActiveTab}/>
                 </div>
 
                 <div className="flex items-center justify-between mt-auto p-4 w-full">
@@ -51,11 +56,17 @@ const VendorDashSidebar = () => {
     );
 };
 
-const SidebarItem = ({ icon, label, isExpanded }) => (
-    <div className={`flex items-center gap-2 p-1 ${isExpanded ? 'px-2 py-1 hover:bg-[#a6c73a] rounded-lg' : 'justify-center'} w-full`}>
+const SidebarItem = ({ icon, label, isExpanded, activeTab, handleActiveTab }) => (
+    <div
+        onClick={() => handleActiveTab(label)}
+        className={`flex items-center gap-2 p-1 cursor-pointer w-full ${
+            isExpanded ? 'px-2 py-1' : 'justify-center'
+        } ${activeTab === label ? 'bg-[#a6c73a]' : ''} rounded-lg hover:bg-[#a6c73a]`}
+    >
         <div className={`text-lg ${isExpanded ? '' : 'p-2 bg-[#095e1f] rounded-md'}`}>{icon}</div>
         {isExpanded && <p className="text-sm">{label}</p>}
     </div>
 );
 
 export default VendorDashSidebar;
+
