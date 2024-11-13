@@ -2,35 +2,41 @@ import { CiBellOn } from "react-icons/ci";
 import { FiTruck } from "react-icons/fi";
 import { FiFileText } from "react-icons/fi";
 import { FaArrowRight } from "react-icons/fa";
-import Sidebar from "../components/Sidebar";
+// import Sidebar from "../components/Sidebar";
 import { IoMdArrowDown } from "react-icons/io";
 import { BsArrowUp } from "react-icons/bs";
 import Line from "../assets/images/Line.png";
 import Line2 from "../assets/images/Line2.png"
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { apiGetOrdersId } from "../services/clientdash(services)/product";
+import Sidebar2 from "../components/Sidebar2";
 
 const ClientDashboard = () => {
+
+    const params = useParams()
+    const orderId = params.id
+
     const [orders, setOrders] = useState([]);
     useEffect(() => {
-        const fetchOrders = async () => {
+        const getOrders = async () => {
             try {
                 const response = await fetch();
-                const data = await response.json();
+                const data = await apiGetOrdersId(orderId);
                 setOrders(data);
             } catch (error) {
                 console.error('Error fetching Orders', error)
             }
         }
-
-    }, []);
+        getOrders();
+    }, [orderId]);
 
 
 
     return (
         <div className="flex gap-20" >
 
-            <Sidebar />
+            <Sidebar2/>
 
             <div className="float-right mb-10 pt-4">
                 <div className="flex mb-5">
@@ -118,6 +124,11 @@ const ClientDashboard = () => {
                                     <p>{order.date}</p>
                                     <p>{order.amount}</p>
                                     <p>{order.status}</p>
+
+                                    <div className="flex gap-5">
+                                        <Link><button className="text-xl"><FiTruck /></button></Link>
+                                        <Link to='/orderDetailPage'><span className="text-xl"><FiFileText /></span></Link>
+                                    </div>
                                 </div>
                             ))
                         }
