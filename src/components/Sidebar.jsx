@@ -40,7 +40,7 @@ const Sidebar = () => {
                     </div>
                     <div className={`flex gap-2 mb-3 hover:bg-[#a6c73a] py-1 px-2  mr-3 rounded-lg ${!isExpanded ? '' : ''}`}>
                         <p className={`mt-1.5 text-[20px] ${!isExpanded ? 'border-2 border-[#095e1f] bg-[#095e1f] rounded-md  py-2 px-2' : ''}`}><TbBox /></p>
-                        {isExpanded && <Link to={"/orderManagementClient"} className="mt-1 ml-1">Order Tracking</Link>}
+                        {isExpanded && <Link to={"/vendorordertracking"} className="mt-1 ml-1">Order Tracking</Link>}
                     </div>
                     <div className={`flex gap-2 mb-3 hover:bg-[#a6c73a] py-1 px-2 mr-3 hover:rounded-lg ${!isExpanded ? '' : ''}`}>
                         <p className={`mt-1.5 text-[20px] ${!isExpanded ? 'border-2 border-[#095e1f] bg-[#095e1f] rounded-md  py-2 px-2' : ''}`}><BsCreditCard /></p>

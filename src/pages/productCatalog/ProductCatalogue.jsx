@@ -11,12 +11,14 @@ import {
 import loadingGif from "../../assets/images/loading.gif";
 import { MdOutlineDeleteForever } from "react-icons/md";
 import { TbArrowBack } from "react-icons/tb";
+import VendCheckoutModal from "./vendCheckoutModal";
 
 const ProductCatalogue = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [cart, setCart] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [showModal, setShowModal] = useState(false);
 
   const getProducts = async () => {
     try {
@@ -102,14 +104,11 @@ const ProductCatalogue = () => {
   };
 
   const handleCheckout = () => {
-    if (cart.length > 0) {
-      // Perform checkout action here. This could be a redirect or API call.
-      alert(`Checkout successful! Total amount: ${calculateTotal()} Fcfa`);
-      // Optionally clear the cart after successful checkout
-      setCart([]);
-    } else {
-      alert("Your cart is empty!");
-    }
+    setShowModal(true);
+  };
+
+  const handleModalClose = () => {
+    setShowModal(false);
   };
 
   if (loading) {
@@ -276,6 +275,12 @@ const ProductCatalogue = () => {
                     Checkout
                   </button>
                 </div>
+                {showModal && (
+          <VendCheckoutModal
+            calculateTotal={calculateTotal}
+            onClose={handleModalClose}
+          />
+        )}
               </div>
             </div>
           </div>
