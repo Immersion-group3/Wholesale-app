@@ -27,6 +27,7 @@ import VendorOrderDetails2 from './pages/(2)VendorOrderDetails';
 
 import AddProducts from './pages/addProducts';
 import VendorProductCatalogue from './pages/addProducts/VendorProductCatalogue';
+import OrderTracking2 from './pages/(2)OrderTracking';
 
 
 
@@ -82,8 +83,12 @@ function App() {
       element: <VendorDashboard2 />
     },
     {
-      path: "/vendororderdetails2",
+      path: "/vendororderdetails2/:vendorId/:orderId",
       element: <VendorOrderDetails2 />
+    },
+    {
+      path: "/vendorordertracking",
+      element: <OrderTracking2 />
     },
     {
       path: '/clientdash',

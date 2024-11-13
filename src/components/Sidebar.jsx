@@ -27,11 +27,11 @@ const Sidebar = () => {
                         <p className="mt-1.5"><IoSearch /></p>
                         {isExpanded && <p>Search</p>}
                     </div>
-                    <div className={`flex gap-2 mb-3  hover:bg-[#a6c73a] py-1 px-2 mr-3 hover:rounded-lg ${!isExpanded ? '' : ''}`}>
-                        <p className={`mt-1.5 text-[20px] ${!isExpanded ? 'border-2 border-[#095e1f] bg-[#095e1f] rounded-md  py-2 px-2 flex items-center justify-center mt-5 mb-1' : 'mt-1.5'}`}>
-                            <LuBarChart2 />
-                        </p>
-                        {isExpanded && <p className="ml-1 mt-1">Dashboard</p>}
+                    
+                    <div className={`flex gap-2 mb-3  hover:bg-[#a6c73a] py-1 px-2  mr-3 hover:rounded-lg ${!isExpanded ? '' : ''}`}>
+                        <p className={`mt-1.5 text-[20px] ${!isExpanded ? 'border-2 border-[#095e1f] bg-[#095e1f] rounded-md  py-2 px-2' : ''}`}><LuBarChart2 /></p>
+                        {isExpanded && <Link to={"/vendordash2"} className="pt-1 ml-1">Dashboard</Link>}
+                        
                     </div>
                     <div className={`flex gap-2 mb-3  hover:bg-[#a6c73a] py-1 px-2  mr-3 hover:rounded-lg ${!isExpanded ? '' : ''}`}>
                         <p className={`mt-1.5 text-[20px] ${!isExpanded ? 'border-2 border-[#095e1f] bg-[#095e1f] rounded-md  py-2 px-2' : ''}`}><FiShoppingCart /></p>

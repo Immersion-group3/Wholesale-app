@@ -7,18 +7,22 @@ import { BsApp } from "react-icons/bs";
 import Line from '../assets/images/Line.png';
 import Line2 from '../assets/images/Line2.png';
 import { useEffect, useState } from "react";
-import VendorDashSidebar from "../components/VendorDashSidebar";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeftLong, faCircle, faCircleDot, faDotCircle, faFileInvoice, faLocationDot, faLocationPin, faTruck } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeftLong, faBicycle, faCircle, faCircleDot, faDotCircle, faFileInvoice, faLocationDot, faLocationPin, faTruck } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 import { apiVendorGetOrders } from "../services(vendor)/getOrders";
+import { useParams } from "react-router-dom";
 import statusBar from "../assets/VendorImages/statusBar.png"
 const VendorDashboard2 = () => {
   const [orders, setOrders] = useState([]);
   const [isTrackingVisible, setIsTrackingVisible] = useState(false); // Set to false initially
   const [orderDetails, setOrderDetails] = useState(null);
   const [selectedOrderId, setSelectedOrderId] = useState(null);
+  
 
+  const {vendorId}=useParams();
+  console.log(vendorId);
   const handlePopUp = async (orderId) => {
     setSelectedOrderId(orderId);
     setIsTrackingVisible(!isTrackingVisible);
@@ -62,7 +66,7 @@ const VendorDashboard2 = () => {
   return (
     <div className="flex h-screen bg-gray-100 overflow-y">
       {/* Sidebar with sticky positioning */}
-      <VendorDashSidebar />
+      <Sidebar />
 
       <div className="flex-1 p-6">
         {/* Header Section */}
@@ -139,7 +143,10 @@ const VendorDashboard2 = () => {
                     <button onClick={() => handlePopUp(order._id)}>
                       <FontAwesomeIcon icon={faTruck} className="ml-[1em] text-[1.5em] mr-[1em]" />
                     </button>
-                    <Link to="/vendororderdetails2"><FontAwesomeIcon icon={faFileInvoice}  className="text-[1.5em]" /></Link>
+                    <Link to={`/vendororderdetails2/${vendorId}/${order._id}`}>
+  <FontAwesomeIcon icon={faFileInvoice} className="text-[1.5em]" />
+</Link>
+
                   </p>
                 </div>
               ))
@@ -157,48 +164,61 @@ const VendorDashboard2 = () => {
 
       {/* Pop-up for Order Tracking */}
       {isTrackingVisible && orderDetails && (
-        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[30%] max-w-lg bg-white p-4 rounded-lg shadow-lg z-50 h-[70%]">
-          <div className="flex h-[5%] items-center">
-            {/* <Link to="/vendordash2"><FontAwesomeIcon icon={faArrowLeftLong} className="mr-[1em]" /></Link>
-            <p>Back</p> */}
-          </div>
-          <div>
-            <h2 className="flex items-baseline font-bold text-[1.2em] text-[#0d8a2e] ml-[1.5em] w-[80%] border-b-2 mt-[1em] pb-2">Order Tracking</h2>
-          </div>
-          <div className="w-[80%] ml-[1.5em] border-b-2 py-[0.5em]">
-            <div className="flex mb-[0.3em]">
-              <p className="font-medium mr-[0.5em] text-[0.8em]">Creation Date :</p>
-              <p className="">{new Date(orderDetails.createdAt).toLocaleDateString()}</p>
-            </div>
-            <div className="flex mb-[0.3em] text-[0.8em]">
-              <p className="font-medium mr-[0.5em]">Current Status :</p>
-              <p>{orderDetails.status}</p>
-            </div>
-            <div className="flex mb-[0.3em] text-[0.8em]">
-              <p className="font-medium mr-[0.5em]">Delivery Date :</p>
-              <p>{new Date(orderDetails.deliveryDate).toLocaleDateString()}</p>
-            </div>
-          </div>
+  <div className="left-3/4 mt-[10%] bg-[white] p-6 rounded-lg shadow-xl z-50 ">
+    <div className="flex items-center justify-between mb-4">
+      <h2 className="text-xl font-bold text-[#0d8a2e]">Order Tracking</h2>
+      {/* Back button (uncomment if needed)
+      <Link to="/vendordash2" className="text-sm text-gray-600 hover:text-[#0d8a2e]">
+        <FontAwesomeIcon icon={faArrowLeftLong} /> Back
+      </Link> */}
+    </div>
 
-          <div className="border-b-2 ml-[1.5em] flex-col w-[80%]">
-            <p className="font-medium mr-[0.5em] text-[0.8em]">Delivery Stage:</p>
-            <div className="border h-[1.4em] w-[80%] rounded-xl bg-[grey] mb-[1em]">
-              <div className="h-full w-[30%] bg-[orange] rounded-xl"></div>
-            </div>
-          </div>
-          <div className="border-b-2 flex flex-col py-[0.5em] w-[80%] ml-[1.5em]">
-            <p className="font-medium ml-[1.5em] text-[0.8em]">Route:</p>
-            <div className="ml-[3em]  ">
-              <div className="w-full flex items-center"><FontAwesomeIcon icon={faCircle} className="mr-[1em]"/><p className="text-[0.8em]">BALI, 557 Rue Douala Manga Bel</p></div>
-              <div className="h-[1em] mt-[0.2em] mb-[0.4em] ml-[0.2em] border-l-2 border-dotted">
+    <div className="border-b pb-4 mb-4">
+      <div className="flex justify-between items-center">
+        <p className="font-medium text-sm text-gray-600">Creation Date:</p>
+        <p className="text-sm text-gray-800">{new Date(orderDetails.createdAt).toLocaleDateString()}</p>
+      </div>
+      <div className="flex justify-between items-center mt-2">
+        <p className="font-medium text-sm text-gray-600">Current Status:</p>
+        <p className="text-sm text-gray-800">{orderDetails.status}</p>
+      </div>
+      <div className="flex justify-between items-center mt-2">
+        <p className="font-medium text-sm text-gray-600">Delivery Date:</p>
+        <p className="text-sm text-gray-800">{new Date(orderDetails.deliveryDate).toLocaleDateString()}</p>
+      </div>
+    </div>
 
-              </div>
-              <div className="w-full flex items-center"><FontAwesomeIcon icon={faLocationDot} className="mr-[1em]"/><p className="text-[0.8em]">2MXV+MGR, Douala, Cameroon</p></div>
-            </div>
-            
-          </div>
+    <div className="border-b pb-4 mb-4">
+      <p className="font-medium text-sm text-gray-600 mb-2">Delivery Stage:</p>
+      <div className="relative w-full h-2 rounded-full bg-gray-200">
+        <div className="absolute top-0 left-0 h-2 rounded-full bg-gradient-to-r from-orange-400 to-yellow-500" style={{ width: "30%" }}></div>
+       
+      </div>
+    </div>
+
+    <div className="mb-4 pb-4 border-b-2">
+      <p className="font-medium text-sm text-gray-600 mb-2">Route:</p>
+      <div className="ml-4 space-y-4">
+        <div className="flex items-center space-x-2">
+          <FontAwesomeIcon icon={faCircle} className="text-blue-600" />
+          <p className="text-sm text-gray-800">BALI, 557 Rue Douala Manga Bel</p>
         </div>
-      )}
+        <div className="border-l-4 border-dotted border-gray-300 ml-2 h-5"></div>
+        <div className="flex items-center space-x-2">
+          <FontAwesomeIcon icon={faLocationDot} className="text-orange-400 ml-1" />
+          <p className="text-sm text-gray-800">2MXV+MGR, Douala, Cameroon</p>
+        </div>
+      </div>
+    </div>
+
+    <div className="flex flex-col ">
+    <p className="font-medium text-sm text-gray-600 ml-2"><FontAwesomeIcon icon={faBicycle}/> Courier Contact Information:</p>
+        <p className="text-sm text-gray-800 ml-2">271 889 990</p>
+      </div>
+
+  </div>
+)}
+
     </div>
   );
 };

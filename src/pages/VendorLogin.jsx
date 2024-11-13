@@ -56,7 +56,7 @@ const VendorLogin = () => {
       const response = await apiVendorLogin(data);
       if (response.status === 200 || response.status === 201) {
         console.log("Successfully Logged In");
-        navigate("/");
+        navigate("/vendordash2");
         toast.success("You have been logged in. Welcome back");
       }
     } catch (error) {
