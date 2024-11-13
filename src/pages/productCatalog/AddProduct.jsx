@@ -24,7 +24,6 @@ const AddProduct = () => {
 
   return (
     <div>
-
       <div className='flex'>
         <Sidebar />
         <div className=" flex flex-col gap-1 ml-80 mt-10">
@@ -68,8 +67,8 @@ const AddProduct = () => {
               <div>
 
                 <span className="text-sm  text-black font-extrabold">Description</span>
-                <textarea name="summary" id="summary" className="w-full border border-gray-300 rounded-md p-3 focus:ring-2 focus:ring-blue-500" type="text"
-                  placeholder="Description"
+                <textarea name="description" id="description" className="w-full border border-gray-300 rounded-md p-3 focus:ring-2 focus:ring-blue-500" type="text"
+                  placeholder="discription"
                   required
                 ></textarea>
               </div>
@@ -80,7 +79,7 @@ const AddProduct = () => {
                   className="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500"
                   type="file"
                   placeholder="Enter URL"
-                  name="cover" />
+                  name="image" />
               </div>
 
 
