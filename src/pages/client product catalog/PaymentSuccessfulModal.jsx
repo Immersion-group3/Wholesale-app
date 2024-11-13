@@ -6,7 +6,7 @@ const PaymentSuccessfulModal = ({ onClose }) => {
   const navigate = useNavigate();
 
   const handleOkClick = () => {
-    navigate("/cart"); // Redirect to the Cart page
+    navigate("/clientorderdetails"); // Redirect to the Cart page
     onClose(); // Close the current modal
   };
 
