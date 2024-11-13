@@ -16,6 +16,7 @@ import { FaPlusCircle } from "react-icons/fa";
 import { TbArrowBack } from "react-icons/tb";
 import { FaSearch } from "react-icons/fa";
 import { IoIosClose } from "react-icons/io";
+import CheckoutModal from "./CheckoutModal";
 
 const GetAll = ({ token }) => {
   const [products, setProducts] = useState([]);
@@ -25,6 +26,7 @@ const GetAll = ({ token }) => {
   const [cart, setCart] = useState([]);
   const [isExpanded, setIsExpanded] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -95,6 +97,14 @@ const GetAll = ({ token }) => {
     (acc, item) => acc + item.price * item.quantity,
     0
   );
+
+  const handleCheckoutClick = () => {
+    setShowModal(true);
+  };
+
+  const handleModalClose = () => {
+    setShowModal(false);
+  };
 
   return (
     <div className="flex">
@@ -334,7 +344,7 @@ const GetAll = ({ token }) => {
                     className={`text-sm font-semibold mt-2 ${
                       product.availability === "yes"
                         ? "text-[#a6c73a]"
-                        : "text-[#a6c73a]"
+                        : "text-red-700"
                     }`}
                   >
                     {product.availability === "yes"
@@ -393,7 +403,7 @@ const GetAll = ({ token }) => {
               <h2 className="text-xl text-[#0D8A2E] font-bold">My Cart</h2>{" "}
             </div>
             <hr />
-           
+
             {cart.length > 0 ? (
               <div>
                 {cart.map((item) => (
@@ -434,21 +444,33 @@ const GetAll = ({ token }) => {
                   </div>
                 ))}
                 <div className="flex items-center justify-between mt-4">
-  <p className="font-bold">Total: {totalPrice} FCFA</p>
-  <button className="flex items-center p-2 bg-[#0D8A2E] text-white    py-2 px-4 mt-4 w-2/5 rounded-lg">
-    Checkout
-    <span className="ml-2 transform -rotate-45">➔</span>
-  </button>
-</div>
-
+                  <p className="font-bold">Total: {totalPrice} FCFA</p>
+                  <button
+                    onClick={handleCheckoutClick}
+                    className="flex items-center p-2 bg-[#0D8A2E] text-white    py-2 px-4 mt-4 w-2/5 rounded-lg"
+                  >
+                    Checkout
+                    <span className="ml-2 transform -rotate-45">➔</span>
+                  </button>
+                </div>
+                {/* Conditionally Render Modal */}
+        {showModal && (
+          <CheckoutModal
+            totalPrice={totalPrice}
+            onClose={handleModalClose}
+          />
+        )}
               </div>
             ) : (
               <div className="text-center flex flex-col items-center justify-center mt-10 p-4">
-  <FaShoppingCart className="w-16 h-16 mb-4 text-gray-300" />
-  <p className="text-2xl">There are no products in your cart yet... </p>
-  <p className="text-gray-500">Select products from the catalog to add to your cart.</p>
-</div>
-
+                <FaShoppingCart className="w-16 h-16 mb-4 text-gray-300" />
+                <p className="text-2xl">
+                  There are no products in your cart yet...{" "}
+                </p>
+                <p className="text-gray-500">
+                  Select products from the catalog to add to your cart.
+                </p>
+              </div>
             )}
           </div>
         </div>
