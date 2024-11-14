@@ -1,6 +1,6 @@
 // OrderManagementPage.jsx
 import React, { useState } from "react";
-import Sidebar from "../../components/Sidebar";
+import Sidebar2 from "../../components/Sidebar2"
 import { GrFormPreviousLink, GrFormNextLink } from "react-icons/gr";
 import Pagination from "./Pagination";
 import { CiDeliveryTruck } from "react-icons/ci";
@@ -19,7 +19,7 @@ const OrderManagementPage = () => {
   const [amount, setAmount] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [isPopupOpen, setIsPopupOpen] = useState(false); // Moved this line to the right position
+  
 
   const orders = [
     { id: "978-0-574-6989-8", date: "17/08/2024", amount: "80,000", status: "In Preparation" },
@@ -29,7 +29,7 @@ const OrderManagementPage = () => {
   ];
 
   const totalPages = 10;
-
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const handleOpenPopup = (event) => {
     event.preventDefault(); 
     setIsPopupOpen(true);
@@ -42,7 +42,7 @@ const OrderManagementPage = () => {
     <div className="flex h-screen bg-white">
       {/* Sidebar */}
       <div>
-        <Sidebar />
+        <Sidebar2 />
       </div>
 
       <section className="flex-1 p-6">
