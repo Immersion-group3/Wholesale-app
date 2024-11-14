@@ -58,7 +58,7 @@ const VendCheckoutModal = ({ onClose }) => {
 
             {/* Title */}
             <h2 className="text-lg font-bold text-center mb-4">
-              Choose Your Delivery and Payment Option
+              Available Delivery and Payment Option
             </h2>
 
             {/* Delivery Method */}

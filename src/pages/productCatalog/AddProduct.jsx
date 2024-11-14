@@ -88,7 +88,6 @@ const AddProduct = () => {
               </div>
             </form>
           </div>
-
         </div>
       </div>
     </div>

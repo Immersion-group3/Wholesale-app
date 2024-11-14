@@ -44,7 +44,7 @@ const VendDeliveryDateModal = ({ onClose, onConfirm }) => {
           </div>
 
           {/* Title */}
-          <h2 className="text-xl font-semibold text-center text-[#0d8a2e] mb-3">Select Delivery Date</h2>
+          <h2 className="text-xl font-semibold text-center text-[#0d8a2e] mb-3">Available Delivery Date</h2>
 
           {/* Paragraph */}
           <p className="text-center text-gray-600 mb-4 text-sm">Choose a delivery date to confirm your order</p>
