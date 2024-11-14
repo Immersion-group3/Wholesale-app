@@ -11,6 +11,8 @@ import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { apiGetOrdersId } from "../services/clientdash(services)/product";
 import Sidebar2 from "../components/Sidebar2";
+import Popup from "./orderManagementClients/Popup";
+import OrderTrackingPage from "./orderManagementClients/OrderTrackingPage";
 
 const ClientDashboard = () => {
 
@@ -31,12 +33,20 @@ const ClientDashboard = () => {
         getOrders();
     }, [orderId]);
 
+    const [isPopupOpen, setIsPopupOpen] = useState(false); // Moved this line to the right position
+    const handleOpenPopup = (event) => {
+        event.preventDefault();
+        setIsPopupOpen(true);
+    };
+
+    const handleClosePopup = () => setIsPopupOpen(false);
+
 
 
     return (
         <div className="flex gap-20" >
 
-            <Sidebar2/>
+            <Sidebar2 />
 
             <div className="float-right mb-10 pt-4">
                 <div className="flex mb-5">
@@ -111,8 +121,8 @@ const ClientDashboard = () => {
                         <p>delivered</p>
 
                         <div className="flex gap-5">
-                            <Link><button className="text-xl"><FiTruck /></button></Link>
-                            <Link to='/clientorderdetails'><span className="text-xl"><FiFileText /></span></Link>
+                            <Link to=''><button className="text-xl"><FiTruck /></button></Link>
+                            <Link to='/orderDetailPage'><span className="text-xl"><FiFileText /></span></Link>
                         </div>
                         {
                             orders.map((order) => (
@@ -126,7 +136,7 @@ const ClientDashboard = () => {
                                     <p>{order.status}</p>
 
                                     <div className="flex gap-5">
-                                        <Link><button className="text-xl"><FiTruck /></button></Link>
+                                        <button onClick={handleOpenPopup} className="text-xl"><FiTruck /></button>
                                         <Link to='/orderDetailPage'><span className="text-xl"><FiFileText /></span></Link>
                                     </div>
                                 </div>
@@ -137,7 +147,18 @@ const ClientDashboard = () => {
                     <button className="flex float-end my-2 mx-2 border shadow rounded p-1 ">See More <FaArrowRight className="pt-1" /></button>
                 </div>
             </div>
-
+            {/* Popup */}
+            <Popup isOpen={isPopupOpen} onClose={handleClosePopup}>
+                <div className="relative bg-white p-6 rounded-lg shadow-lg">
+                    <button
+                        onClick={handleClosePopup}
+                        className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 focus:outline-none"
+                    >
+                        ✕
+                    </button>
+                    <OrderTrackingPage onClose={handleClosePopup} />
+                </div>
+            </Popup>
         </div>
     )
 }
