@@ -12,6 +12,7 @@ import loadingGif from "../../assets/images/loading.gif";
 import { MdOutlineDeleteForever } from "react-icons/md";
 import { TbArrowBack } from "react-icons/tb";
 import VendCheckoutModal from "./vendCheckoutModal";
+import { Link } from "react-router-dom";
 
 const ProductCatalogue = () => {
   const [products, setProducts] = useState([]);
@@ -19,6 +20,7 @@ const ProductCatalogue = () => {
   const [cart, setCart] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [wholesale, setWholesale] = useState([]);
 
   const getProducts = async () => {
     try {
@@ -29,7 +31,9 @@ const ProductCatalogue = () => {
         price: Number(product.price),
         stock: product.availability,
         description: product.discription,
+        icon: product.icon,
       }));
+      console.log("products-->", formattedProducts)
       setProducts(formattedProducts);
     } catch (error) {
       console.error("Error fetching products", error);
@@ -41,6 +45,7 @@ const ProductCatalogue = () => {
   useEffect(() => {
     getProducts();
   }, []);
+
 
   const handleSearch = async (e) => {
     const query = e.target.value.toLowerCase();
@@ -173,11 +178,9 @@ const ProductCatalogue = () => {
                       key={product.id}
                       className="border rounded-lg overflow-hidden shadow-sm"
                     >
-                      <img
-                        src={product.image}
-                        alt={product.title}
-                        className="h-32 w-full object-cover"
-                      />
+                      <Link to={`/singleproduct/${product.id}`} className='h-[35vh] w-[15vw]'>
+                        <img src={`https://savefiles.org/${product.icon}?shareable_link=503`} alt="" className='h-[30vh] pt-2' />
+                      </Link>
                       <div className="p-4">
                         <p className="text-sm text-gray-500 mb-1">
                           {product.stock}
@@ -238,7 +241,7 @@ const ProductCatalogue = () => {
                     {cart.map((item, index) => (
                       <li
                         key={index}
-                        className="flex justify-between items-center py-2 border-b"
+                        className="flex justify-between items-center py-3 border-2 p-3"
                       >
                         <span>
                           {item.title} (x{item.count})
@@ -276,11 +279,11 @@ const ProductCatalogue = () => {
                   </button>
                 </div>
                 {showModal && (
-          <VendCheckoutModal
-            calculateTotal={calculateTotal}
-            onClose={handleModalClose}
-          />
-        )}
+                  <VendCheckoutModal
+                    calculateTotal={calculateTotal}
+                    onClose={handleModalClose}
+                  />
+                )}
               </div>
             </div>
           </div>
