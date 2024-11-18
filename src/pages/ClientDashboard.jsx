@@ -9,34 +9,47 @@ import Line from "../assets/images/Line.png";
 import Line2 from "../assets/images/Line2.png"
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { apiGetOrdersId } from "../services/clientdash(services)/product";
+import { apiGetOrderById } from "../services/clientdash(services)/product";
 import Sidebar2 from "../components/Sidebar2";
+import Popup from "./orderManagementClients/Popup";
+import OrderTrackingPage from "./orderManagementClients/OrderTrackingPage";
 
 const ClientDashboard = () => {
 
     const params = useParams()
     const orderId = params.id
 
-    const [orders, setOrders] = useState([]);
-    useEffect(() => {
-        const getOrders = async () => {
-            try {
-                const response = await fetch();
-                const data = await apiGetOrdersId(orderId);
-                setOrders(data);
-            } catch (error) {
-                console.error('Error fetching Orders', error)
-            }
+    const [order, setOrder] = useState([]);
+    const getOrder = async () => {
+        try {
+            const response =  await apiGetOrderById(orderId);
+            const {data} =response
+            setOrder(data);
+        } catch (error) {
+            console.error('Error fetching Orders', error)
         }
-        getOrders();
+    }
+    useEffect(() => {
+       
+        getOrder();
     }, [orderId]);
+
+
+
+    const [isPopupOpen, setIsPopupOpen] = useState(false); // Moved this line to the right position
+    const handleOpenPopup = () => {
+        console.log("popup clicked")
+        setIsPopupOpen(true);
+    };
+
+    const handleClosePopup = () => setIsPopupOpen(false);
 
 
 
     return (
         <div className="flex gap-20" >
 
-            <Sidebar2/>
+            <Sidebar2 />
 
             <div className="float-right mb-10 pt-4">
                 <div className="flex mb-5">
@@ -111,14 +124,16 @@ const ClientDashboard = () => {
                         <p>delivered</p>
 
                         <div className="flex gap-5">
-                            <Link><button className="text-xl"><FiTruck /></button></Link>
-                            <Link to='/clientorderdetails'><span className="text-xl"><FiFileText /></span></Link>
+                            <Link><button onClick={handleOpenPopup} className="text-xl"><FiTruck /></button></Link>
+                            <Link to='/orderDetailPage'><span className="text-xl"><FiFileText /></span></Link>
                         </div>
+                        
                         {
-                            orders.map((order) => (
+                            order.map((order) => (
                                 <div key={order.id}>
-                                    <div>
-                                        <p><BsApp /></p>
+                                    <div className="flex gap-2">
+                                        {/* <p><BsApp /></p> */}
+                                        <input type="checkbox" name="checkbox" id="checkbox" />
                                         <p>{order.id}</p>
                                     </div>
                                     <p>{order.date}</p>
@@ -126,7 +141,7 @@ const ClientDashboard = () => {
                                     <p>{order.status}</p>
 
                                     <div className="flex gap-5">
-                                        <Link><button className="text-xl"><FiTruck /></button></Link>
+                                        <button onClick={handleOpenPopup} className="text-xl"><FiTruck /></button>
                                         <Link to='/orderDetailPage'><span className="text-xl"><FiFileText /></span></Link>
                                     </div>
                                 </div>
@@ -137,7 +152,18 @@ const ClientDashboard = () => {
                     <button className="flex float-end my-2 mx-2 border shadow rounded p-1 ">See More <FaArrowRight className="pt-1" /></button>
                 </div>
             </div>
-
+            {/* Popup */}
+            <Popup isOpen={isPopupOpen} onClose={handleClosePopup}>
+                <div className="relative bg-white p-6 rounded-lg shadow-lg">
+                    <button
+                        onClick={handleClosePopup}
+                        className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 focus:outline-none"
+                    >
+                        ✕
+                    </button>
+                    <OrderTrackingPage onClose={handleClosePopup} />
+                </div>
+            </Popup>
         </div>
     )
 }

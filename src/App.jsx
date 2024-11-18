@@ -28,14 +28,26 @@ import VendorOrderDetails2 from './pages/(2)VendorOrderDetails';
 // import AddProducts from './pages/addProducts';
 // import VendorProductCatalogue from './pages/addProducts/VendorProductCatalogue';
 import OrderTracking2 from './pages/(2)OrderTracking';
+
 import EditProduct from './pages/editProduct';
 import SingleProduct from './pages/singleProduct';
+import OurCommitment from './pages/OurCommitment';
+import NewsletterSubscribe from './pages/SubscribeNewsletter';
+
 
 
 
 
 function App() {
   const router = createBrowserRouter([
+    {
+      path:"/home",
+      element:<OurCommitment/>
+    },
+    {
+      path:"/newsletter",
+      element:<NewsletterSubscribe/>
+    },
     {
       path: "/vendorsignup",
       element: <VendorSignUp />
