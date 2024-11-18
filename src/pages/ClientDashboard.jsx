@@ -9,7 +9,7 @@ import Line from "../assets/images/Line.png";
 import Line2 from "../assets/images/Line2.png"
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { apiGetOrdersId } from "../services/clientdash(services)/product";
+import { apiGetOrderById } from "../services/clientdash(services)/product";
 import Sidebar2 from "../components/Sidebar2";
 import Popup from "./orderManagementClients/Popup";
 import OrderTrackingPage from "./orderManagementClients/OrderTrackingPage";
@@ -19,23 +19,26 @@ const ClientDashboard = () => {
     const params = useParams()
     const orderId = params.id
 
-    const [orders, setOrders] = useState([]);
-    useEffect(() => {
-        const getOrders = async () => {
-            try {
-                const response = await fetch();
-                const data = await apiGetOrdersId(orderId);
-                setOrders(data);
-            } catch (error) {
-                console.error('Error fetching Orders', error)
-            }
+    const [order, setOrder] = useState([]);
+    const getOrder = async () => {
+        try {
+            const response =  await apiGetOrderById(orderId);
+            const {data} =response
+            setOrder(data);
+        } catch (error) {
+            console.error('Error fetching Orders', error)
         }
-        getOrders();
+    }
+    useEffect(() => {
+       
+        getOrder();
     }, [orderId]);
 
+
+
     const [isPopupOpen, setIsPopupOpen] = useState(false); // Moved this line to the right position
-    const handleOpenPopup = (event) => {
-        event.preventDefault();
+    const handleOpenPopup = () => {
+        console.log("popup clicked")
         setIsPopupOpen(true);
     };
 
@@ -121,14 +124,16 @@ const ClientDashboard = () => {
                         <p>delivered</p>
 
                         <div className="flex gap-5">
-                            <Link to=''><button className="text-xl"><FiTruck /></button></Link>
+                            <Link><button onClick={handleOpenPopup} className="text-xl"><FiTruck /></button></Link>
                             <Link to='/orderDetailPage'><span className="text-xl"><FiFileText /></span></Link>
                         </div>
+                        
                         {
-                            orders.map((order) => (
+                            order.map((order) => (
                                 <div key={order.id}>
-                                    <div>
-                                        <p><BsApp /></p>
+                                    <div className="flex gap-2">
+                                        {/* <p><BsApp /></p> */}
+                                        <input type="checkbox" name="checkbox" id="checkbox" />
                                         <p>{order.id}</p>
                                     </div>
                                     <p>{order.date}</p>
