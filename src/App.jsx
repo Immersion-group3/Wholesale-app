@@ -25,9 +25,11 @@ import OrderDetailPage from './pages/orderManagementClients/OrderDetailPage';
 import VendorDashboard2 from './pages/(2)VendorDashboard';
 import VendorOrderDetails2 from './pages/(2)VendorOrderDetails';
 
-import AddProducts from './pages/addProducts';
-import VendorProductCatalogue from './pages/addProducts/VendorProductCatalogue';
+// import AddProducts from './pages/addProducts';
+// import VendorProductCatalogue from './pages/addProducts/VendorProductCatalogue';
 import OrderTracking2 from './pages/(2)OrderTracking';
+import EditProduct from './pages/editProduct';
+import SingleProduct from './pages/singleProduct';
 
 
 
@@ -119,13 +121,14 @@ function App() {
       element: <ClientOrderDetails />
     },
     {
-      path: '/vendproductcatalogue',
-      element: <VendorProductCatalogue />
+      path: '/editproduct/:id',
+      element: <EditProduct />
     },
     {
-      path: "/addprod",
-      element: <AddProducts />
+      path: '/singleproduct/:id',
+      element: <SingleProduct />
     }
+    
 
 
   ])
