@@ -33,6 +33,7 @@ import EditProduct from './pages/editProduct';
 import SingleProduct from './pages/singleProduct';
 import OurCommitment from './pages/OurCommitment';
 import NewsletterSubscribe from './pages/SubscribeNewsletter';
+import LandingPage from './pages/LandingPage';
 
 
 
@@ -40,6 +41,10 @@ import NewsletterSubscribe from './pages/SubscribeNewsletter';
 
 function App() {
   const router = createBrowserRouter([
+    {
+      path:"/",
+      element:<LandingPage/>
+    },
     {
       path:"/home",
       element:<OurCommitment/>

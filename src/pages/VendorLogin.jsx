@@ -62,7 +62,7 @@ const VendorLogin = () => {
     } catch (error) {
       setError("Failed to log in");
       console.error("Failed to log in:", error);
-      toast.error("Oops!We failed to log you in. Please try again.")
+      toast.error("Oops! We failed to log you in. Please try again.")
     } finally {
       setLoading(false); // Reset loading status after the login process is complete
     }
@@ -70,61 +70,80 @@ const VendorLogin = () => {
 
   return (
     <div>
-      <section className="h-[100vh] bg-[#c5e0b5] py-[3%] px-[15%]">
-        <div className="w-[75%] bg-white rounded-3xl z-1 flex flex-col pt-[3%] px-[5%] ml-auto mr-auto h-[80%]">
-          <div className="h-[10%] mb-[0.5em] flex">
-            <FontAwesomeIcon icon={faArrowLeftLong} onClick={handleBack} className="hover:cursor-pointer text-[1.5em] mt-[0.5em] mr-[5%]" />
-            <h1 className="text-[1.8em] font-bold">Log Into Your Account</h1>
+      <section className="h-screen bg-[#f4f9f5] py-10 px-6">
+        <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-8 mx-auto">
+          <div className="flex items-center justify-between mb-6">
+            <FontAwesomeIcon 
+              icon={faArrowLeftLong} 
+              onClick={handleBack} 
+              className="text-2xl cursor-pointer text-[#0d8a2e]" 
+            />
+            <h1 className="text-2xl font-semibold">Log Into Your Account</h1>
           </div>
-          {error && <p className="text-red-500 text-center">{error}</p>}
-          <div className="h-[10%] w-[80%] ml-auto mr-auto flex justify-center items-center gap-x-[5%] mb-[5%]">
-            <button onClick={handleGoogleAuth} className="w-[50%] ml-auto mr-auto h-full border flex pt-[0.3em]">
-              <img src={googleIcon} className="h-[1.5em] ml-[10%] mr-[5%]" alt="Google" />
-              <p>Sign In with Google</p>
+
+          {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+
+          <div className="flex justify-center gap-x-4 mb-6">
+            <button 
+              onClick={handleGoogleAuth} 
+              className="w-full h-12 flex items-center justify-center border rounded-md mb-4 hover:bg-gray-50 focus:outline-none"
+            >
+              <img src={googleIcon} className="h-6 mr-3" alt="Google" />
+              <span className="text-lg">Sign In with Google</span>
             </button>
-            {/* <button className="w-full h-full border flex pt-[0.3em]">
-              <img src={appleIcon} className="h-[1.5em] ml-[10%] mr-[5%]" alt="Apple" />
-              <p>Sign up with Apple</p>
+            {/* <button className="w-full h-12 flex items-center justify-center border rounded-md mb-4 hover:bg-gray-50 focus:outline-none">
+              <img src={appleIcon} className="h-6 mr-3" alt="Apple" />
+              <span className="text-lg">Sign In with Apple</span>
             </button> */}
           </div>
-          <hr className="w-[80%] ml-auto mr-auto" />
-          <h2 className="font-semibold bg-white text-center mt-[-0.8em] w-[10%] h-[5%] ml-auto mr-auto mb-[0.5em]">OR</h2>
-          <form onSubmit={handleLogin} className="h-[100%]">
-            <div className="h-auto w-[80%] flex flex-col gap-y-[1em] ml-auto mr-auto">
-              <div className="h-[100%] w-[80%] ml-auto mr-auto pb-[1em] pl-[0.5em]">
+
+          <hr className="mb-6" />
+
+          <h2 className="text-center text-lg font-medium mb-6">OR</h2>
+
+          <form onSubmit={handleLogin}>
+            <div className="space-y-4">
+              <div>
                 <input
                   type="email" 
                   name="email"
                   placeholder="Email"
-                  className="h-[80%] border-b-2 w-[90%]"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full p-3 border rounded-md shadow-sm focus:ring-2 focus:ring-green-400"
+                  required
                 />
               </div>
-              <div className="h-[100%] w-[80%] ml-auto mr-auto pb-[1em] pl-[0.5em]">
+              <div className="relative">
                 <input
                   type={showPass ? "text" : "password"}
                   name="password"
                   placeholder="Password"
-                  className="h-[80%] border-b-2 w-[90%]"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full p-3 border rounded-md shadow-sm focus:ring-2 focus:ring-green-400"
+                  required
                 />
-                <div className="mt-[-1.4em] ml-[85%]">
-                  {showPass ? (
-                    <FontAwesomeIcon icon={faEye} onClick={toggleVisibility} className="text-[#0d8a2e] cursor-pointer" />
-                  ) : (
-                    <FontAwesomeIcon icon={faEyeSlash} onClick={toggleVisibility} className="text-[#0d8a2e] cursor-pointer" />
-                  )}
-                </div>
-                <Link to="/forgotpassword" className="text-[#0d8a2e]">Forgot Password?</Link>
-                <button 
-                  type="submit" 
-                  disabled={loading} // Disable button when loading
-                  className="mt-[5%] h-[20%] w-full border bg-[#0d8a2e] text-center text-[white] font-bold py-[0.5em]"
-                >
-                  {loading ? "Logging In..." : "Log In"}
-                </button>
-                <p className="mt-[5%] mb-[5%] text-center">
-                  Don't have an account? <Link to="/vendorsignup" className="text-[#0d8a2e] font-semibold">Sign Up</Link>
-                </p>
+                <FontAwesomeIcon 
+                  icon={showPass ? faEye : faEyeSlash} 
+                  onClick={toggleVisibility} 
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-green-500" 
+                />
               </div>
+              <Link to="/forgotpassword" className="text-green-500 text-sm text-right block mt-2">Forgot Password?</Link>
+              
+              <button 
+                type="submit" 
+                disabled={loading}
+                className="w-full py-3 bg-green-500 text-white font-bold rounded-md mt-6 hover:bg-green-600 focus:outline-none disabled:bg-gray-400"
+              >
+                {loading ? "Logging In..." : "Log In"}
+              </button>
+
+              <p className="text-center text-sm mt-4">
+                Don't have an account? 
+                <Link to="/vendorsignup" className="text-green-500 font-semibold"> Sign Up</Link>
+              </p>
             </div>
           </form>
         </div>
