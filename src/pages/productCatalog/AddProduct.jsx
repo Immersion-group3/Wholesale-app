@@ -32,7 +32,10 @@ const AddProduct = () => {
         return `${year}-${month}-${day}`; // Return the correctly formatted date
       });
 
-      formData.append("deliveryDate", JSON.stringify(formattedDeliveryDates));
+      deliveryDate.forEach((date, i) => {
+        formData.append(`deliveryDate`, date);
+      });
+      // formData.append("deliveryDate", JSON.stringify(formattedDeliveryDates));
 
       const response = await apiAddProduct(formData);
       console.log(response.data);
