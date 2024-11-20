@@ -32,6 +32,7 @@ const GetAll = ({ token }) => {
     const fetchProducts = async () => {
       try {
         const response = await apiGetall(token);
+        console.log("token", token)
         const productData = response.data || []; // Default to empty array if no data
         setProducts(productData);
         setFilteredProducts(productData);
@@ -334,7 +335,7 @@ const GetAll = ({ token }) => {
                 >
                   {/* Image */}
                   <img
-                    src={product.image}
+                    src={`https://savefiles.org/${product.icon}?shareable_link=503`}
                     alt={product.name}
                     className="w-full h-32 object-cover rounded"
                   />
@@ -342,12 +343,12 @@ const GetAll = ({ token }) => {
                   {/* Availability on top of Title */}
                   <p
                     className={`text-sm font-semibold mt-2 ${
-                      product.availability === "yes"
+                      product.availability === "in-stock"
                         ? "text-[#a6c73a]"
                         : "text-red-700"
                     }`}
                   >
-                    {product.availability === "yes"
+                    {product.availability === "in-stock"
                       ? "Available"
                       : "Out of Stock"}
                   </p>
@@ -368,12 +369,12 @@ const GetAll = ({ token }) => {
                   {/* Add to Cart Button */}
                   <button
                     onClick={() =>
-                      product.availability === "yes" && addToCart(product)
+                      product.availability === "in-stock" && addToCart(product)
                     }
-                    disabled={product.availability !== "yes"}
+                    disabled={product.availability !== "in-stock"}
                     className={`p-2 flex items-center py-2 px-4 mt-4 w-full rounded-lg 
           ${
-            product.availability === "yes"
+            product.availability === "in-stock"
               ? "bg-[#0D8A2E] text-white hover:bg-green-600"
               : "bg-gray-300 text-gray-500 cursor-not-allowed"
           }`}
