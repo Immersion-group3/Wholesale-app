@@ -1,6 +1,6 @@
 
 import { Link, useNavigate } from 'react-router-dom';
-import Sidebar from '../../components/Sidebar';
+import Sidebar2 from '../../components/Sidebar';
 import { FaArrowLeft } from "react-icons/fa";
 import { apiAddProduct } from '../../vendorservices/product';
 import { useState } from 'react';
@@ -45,7 +45,7 @@ const AddProduct = () => {
   return (
     <div>
       <div className="flex">
-        <Sidebar />
+        <Sidebar2 />
         <div className="flex flex-col gap-1 ml-80 mt-10">
           <div className="flex gap-2">
             <Link to="/productCatalog" className="pt-5">
