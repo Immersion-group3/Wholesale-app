@@ -30,12 +30,17 @@ import VendorProductCatalogue from './pages/addProducts/VendorProductCatalogue';
 import OrderTracking2 from './pages/(2)OrderTracking';
 import OurCommitment from './pages/OurCommitment';
 import NewsletterSubscribe from './pages/SubscribeNewsletter';
+import LandingPage from './pages/LandingPage';
 
 
 
 
 function App() {
   const router = createBrowserRouter([
+    {
+      path:"/",
+      element:<LandingPage/>
+    },
     {
       path:"/home",
       element:<OurCommitment/>
