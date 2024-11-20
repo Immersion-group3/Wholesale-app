@@ -1,28 +1,43 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { IoIosClose } from "react-icons/io";
 import { FaCalendarAlt } from "react-icons/fa";
-import VisaCardPaymentModal from "./VisaCardPaymentModal";  
+import VisaCardPaymentModal from "./VisaCardPaymentModal";
+import { apiGetDeliveryDate } from "../../services(client)/delivery"; // Import the API function
 
-const SelectDeliveryDateModal = ({ onClose, onConfirm }) => {
+
+const SelectDeliveryDateModal = ({ onClose, onConfirm, productId, token }) => {
   const [selectedDay, setSelectedDay] = useState(null);
   const [showConditions, setShowConditions] = useState(false);
-  const [showPaymentModal, setShowPaymentModal] = useState(false); // State to control VisaCard Payment modal visibility
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [deliveryDates, setDeliveryDates] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  const availableDays = [
-    { date: "Monday, Nov 13", time: "10:00 AM - 12:00 PM", isAvailable: true, conditions: "Order opening: 9:00 AM, Order closing: 5:00 PM" },
-    { date: "Tuesday, Nov 14", time: "2:00 PM - 4:00 PM", isAvailable: true, conditions: "Order opening: 9:00 AM, Order closing: 5:00 PM" },
-    { date: "Wednesday, Nov 15", time: "Unavailable", isAvailable: false, conditions: "" },
-    { date: "Thursday, Nov 16", time: "12:00 PM - 2:00 PM", isAvailable: true, conditions: "Order opening: 9:00 AM, Order closing: 5:00 PM" },
-    { date: "Friday, Nov 17", time: "Unavailable", isAvailable: false, conditions: "" }
-  ];
+
+  useEffect(() => {
+    const fetchDeliveryDates = async () => {
+      setLoading(true);
+      try {
+        const response = await apiGetDeliveryDate(productId, token);
+        setDeliveryDates(response.data.deliveryDate);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchDeliveryDates();
+  }, [productId, token]);
+
 
   const handleConfirm = () => {
     if (selectedDay) {
-      onConfirm(selectedDay); // Send selected day to parent
-      setShowPaymentModal(true); // Show VisaCard Payment Modal
-      onClose(); // Close the Select Delivery Date modal
+      onConfirm(selectedDay);
+      setShowPaymentModal(true);
+      onClose();
     }
   };
+
 
   return (
     <div>
@@ -32,6 +47,7 @@ const SelectDeliveryDateModal = ({ onClose, onConfirm }) => {
           <button onClick={onClose} className="absolute top-2 right-2 text-gray-600 hover:text-gray-800 transition duration-200">
             <IoIosClose size={20} />
           </button>
+
 
           {/* Calendar Icon and Tracking Line */}
           <div className="flex items-center mb-4 space-x-2">
@@ -43,45 +59,41 @@ const SelectDeliveryDateModal = ({ onClose, onConfirm }) => {
             </div>
           </div>
 
+
           {/* Title */}
           <h2 className="text-xl font-semibold text-center text-[#0d8a2e] mb-3">Select Delivery Date</h2>
+
 
           {/* Paragraph */}
           <p className="text-center text-gray-600 mb-4 text-sm">Choose a delivery date to confirm your order</p>
 
+
           {/* Available Days with Times */}
           <div className="space-y-3">
-            {availableDays.map((day, index) => (
-              <label key={index} className={`flex items-center text-sm ${!day.isAvailable ? "text-gray-400 cursor-not-allowed" : "text-gray-800"}`}>
-                <input
-                  type="radio"
-                  name="deliveryDate"
-                  value={day.date}
-                  disabled={!day.isAvailable}
-                  checked={selectedDay === day.date}
-                  onChange={() => {
-                    setSelectedDay(day.date);
-                    setShowConditions(true);
-                  }}
-                  className="form-radio text-transparent peer-checked:bg-[#0d8a2e] peer-checked:ring-2 peer-checked:ring-[#0d8a2e] transition duration-200"
-                />
-                <span className="ml-3 flex-1">{day.date} - {day.time}</span>
-
-                {showConditions && selectedDay === day.date && (
-                  <div className="text-xs text-gray-500 ml-6 mt-2 flex-shrink-0">
-                    <div className="bg-green-300 p-3 rounded-lg shadow-sm">
-                      <strong className="text-[#0d8a2e]">Conditions for {day.date}:</strong>
-                      <div className="space-y-1">
-                        {day.conditions && day.conditions.split(",").map((condition, idx) => (
-                          <p key={idx}>{condition}</p>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </label>
-            ))}
+            {loading ? (
+              <p>Loading...</p>
+            ) : error ? (
+              <p>Error: {error}</p>
+            ) : (
+              deliveryDates.map((day, index) => (
+                <label key={index} className={`flex items-center text-sm text-gray-800`}>
+                  <input
+                    type="radio"
+                    name="deliveryDate"
+                    value={day}
+                    checked={selectedDay === day}
+                    onChange={() => {
+                      setSelectedDay(day);
+                      setShowConditions(true);
+                    }}
+                    className="form-radio text-transparent peer-checked:bg-[#0d8a2e] peer-checked:ring-2 peer-checked:ring-[#0d8a2e] transition duration-200"
+                  />
+                  <span className="ml-3 flex-1">{day}</span>
+                </label>
+              ))
+            )}
           </div>
+
 
           {/* Buttons */}
           <div className="flex justify-between space-x-3 mt-5">
@@ -99,10 +111,12 @@ const SelectDeliveryDateModal = ({ onClose, onConfirm }) => {
         </div>
       </div>
 
+
       {/* VisaCard Payment Modal */}
       {showPaymentModal && <VisaCardPaymentModal onClose={() => setShowPaymentModal(false)} />}
     </div>
   );
 };
+
 
 export default SelectDeliveryDateModal;
