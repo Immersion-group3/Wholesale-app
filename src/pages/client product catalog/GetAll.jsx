@@ -17,6 +17,7 @@ import { TbArrowBack } from "react-icons/tb";
 import { FaSearch } from "react-icons/fa";
 import { IoIosClose } from "react-icons/io";
 import CheckoutModal from "./CheckoutModal";
+import Sidebar2 from "../../components/Sidebar2";
 
 const GetAll = ({ token }) => {
   const [products, setProducts] = useState([]);
@@ -109,8 +110,8 @@ const GetAll = ({ token }) => {
 
   return (
     <div className="flex">
-      {/* Sidebar */}
-      <div
+      <Sidebar2/>
+      {/* <div
         className={`bg-[#c5e0b5] transition-all duration-300 ${
           isExpanded ? "w-[18vw]" : "w-[5vw]"
         } h-full`}
@@ -284,7 +285,7 @@ const GetAll = ({ token }) => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Main Content */}
       <div className="flex w-full p-5 gap-6">
