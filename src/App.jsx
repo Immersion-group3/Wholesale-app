@@ -34,6 +34,7 @@ import SingleProduct from './pages/singleProduct';
 import OurCommitment from './pages/OurCommitment';
 import NewsletterSubscribe from './pages/SubscribeNewsletter';
 import LandingPage from './pages/LandingPage';
+import RegisterStatus from './pages/RegisterStatus';
 
 
 
@@ -48,6 +49,10 @@ function App() {
     {
       path:"/home",
       element:<OurCommitment/>
+    },
+    {
+      path:"/status",
+      element:<RegisterStatus/>
     },
     {
       path:"/newsletter",

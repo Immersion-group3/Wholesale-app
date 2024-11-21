@@ -25,7 +25,7 @@ const LandingPage = () => {
 
     {/* Button */}
     <div>
-      <Link to="/vendorsignup"><button className="bg-[#FFFFB8] text-[#abcb41] py-2 px-4 rounded-md">
+      <Link to="/status"><button className="bg-[#FFFFB8] text-[#abcb41] py-2 px-4 rounded-md">
         Access the Platform
       </button></Link>
     </div>
@@ -51,7 +51,7 @@ const LandingPage = () => {
       <button className="bg-green-700 hover:bg-green-800 text-white py-2 px-4 rounded">
         Contact Us
       </button>
-      <Link  to="/vendorsignup"><button className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded">
+      <Link  to="/status"><button className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded">
         Access the Platform
       </button></Link>
     </div>
@@ -149,7 +149,7 @@ const LandingPage = () => {
           />
         </div>
         <div className="text-center mt-10">
-          <Link tO="/clientproductcatalog"><button className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded">
+          <Link tO="/status"><button className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded">
             Discover Our Products
           </button></Link>
         </div>

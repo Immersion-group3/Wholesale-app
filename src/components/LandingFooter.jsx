@@ -18,7 +18,7 @@ const LandingFooter = () => {
           <Link to="/newsletter"><button className="px-6 py-2 bg-white border border-gray-300 rounded-md shadow-md ">
             Subscribe to the newsletter
           </button></Link>
-         <Link to="/productCatalog"><button className="px-6 py-2 bg-white border border-gray-300 rounded-md shadow-md">Explore products
+         <Link to="/status"><button className="px-6 py-2 bg-white border border-gray-300 rounded-md shadow-md">Explore products
           </button></Link>
         </div>
       </div>
