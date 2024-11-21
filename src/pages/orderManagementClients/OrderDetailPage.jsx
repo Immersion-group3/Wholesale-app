@@ -5,7 +5,7 @@ const OrderDetailPage = () => {
   return (
     <div className="flex bg-white min-h-screen font-sans">
       
-      <div><Sidebar2 /></div>
+     <Sidebar2/>
 
       {/* Main section Content */}
       <section className="flex-1 p-8">
