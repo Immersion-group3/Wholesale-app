@@ -1,11 +1,11 @@
-import Sidebar from '../../components/Sidebar';
+import Sidebar2 from '../../components/Sidebar';
 import { CiImport } from "react-icons/ci";
 
 const OrderDetailPage = () => {
   return (
     <div className="flex bg-white min-h-screen font-sans">
       
-      <div><Sidebar /></div>
+      <div><Sidebar2 /></div>
 
       {/* Main section Content */}
       <section className="flex-1 p-8">
