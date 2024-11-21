@@ -17,7 +17,7 @@ import AddProduct from './pages/productCatalog/AddProduct';
 import ClientForgotPassword from './pages/client auth/ClientForgotPassword';
 import ClientResetPassword from './pages/client auth/ClientResetPassword';
 import GetAll from './pages/client product catalog/GetAll';
-import ClientOrderDetails from './pages/clientOrderDetails/clientOrderDetails';
+
 import OrderManagementPage from './pages/orderManagementClients/orderManagement';
 import OrderTrackingPage from './pages/orderManagementClients/OrderTrackingPage';
 import OrderDetailPage from './pages/orderManagementClients/OrderDetailPage';
@@ -133,10 +133,7 @@ function App() {
       path: '/clientproductcatalog',
       element: <GetAll />
     },
-    {
-      path: '/clientorderdetails',
-      element: <ClientOrderDetails />
-    },
+    
     {
       path: '/editproduct/:id',
       element: <EditProduct />
